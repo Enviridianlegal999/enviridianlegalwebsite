@@ -1,0 +1,21 @@
+.container {
+  max-width: var(--desktop-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 1200px) and (min-width: 744px) {
+  .container {
+    max-width: var(--tablet-max-width);
+    padding-left: var(--tablet-padding);
+    padding-right: var(--tablet-padding);
+  }
+}
+
+@media (max-width: 743px) {
+  .container {
+    max-width: var(--mobile-max-width);
+    padding-left: var(--mobile-padding);
+    padding-right: var(--mobile-padding);
+  }
+}
