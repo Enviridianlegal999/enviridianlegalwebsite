@@ -1,8 +1,10 @@
+"use client";
+
 import Link from "next/link";
 
 import { headerNavItems } from "@/constants/links";
 
-const DesktopNavbar = ({ styles }) => {
+const TabletNavbar = ({ styles }) => {
   return (
     <ul className={styles.navLinks}>
       {headerNavItems.map((item) => (
@@ -14,4 +16,4 @@ const DesktopNavbar = ({ styles }) => {
   );
 };
 
-export default DesktopNavbar;
+export default TabletNavbar;

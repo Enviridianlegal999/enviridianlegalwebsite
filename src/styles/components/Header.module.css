@@ -22,6 +22,11 @@
   border-bottom: 1px solid var(--grey-10);
 }
 
+.headerMobileMenuOpenCurve {
+  border-radius: var(--high-rounded);
+  border: 1px solid var(--grey-10);
+}
+
 .headerNormal {
   transition: padding 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     border-radius 0.35s cubic-bezier(0.4, 0, 0.2, 1),
@@ -68,4 +73,42 @@
 
 .mobileNavLinks a:hover {
   color: var(--primary);
+}
+
+@media (max-width: 1200px) and (min-width: 744px) {
+  .header a {
+    font-size: 18px;
+  }
+
+  .navLinks {
+    gap: 16px;
+  }
+
+  .logo {
+    img {
+      width: 120px;
+    }
+  }
+}
+
+@media (max-width: 743px) {
+  .header {
+    padding: 20px 20px;
+  }
+  .logo {
+    img {
+      width: 120px;
+    }
+  }
+  .navbar {
+    justify-content: space-around;
+  }
+
+  .header a {
+    font-size: 16px;
+  }
+
+  .navLinks {
+    gap: 12px;
+  }
 }

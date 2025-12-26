@@ -1,0 +1,38 @@
+.fullWidthWrapper {
+  width: 100vw;
+  display: flex; /* horizontal alignment */
+}
+
+/* Absolute behind mode */
+.behind {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: var(--z-index-hero-image); /* behind content */
+}
+
+/* Normal flow mode */
+.flow {
+  position: relative;
+  z-index: var(--z-index-hero-image);
+}
+
+/* Alignment via flex */
+.alignLeft {
+  justify-content: flex-start;
+}
+
+.alignCenter {
+  justify-content: center;
+}
+
+.alignRight {
+  justify-content: flex-end;
+}
+
+/* Image container */
+.fullWidthImage {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center center; /* default */
+}

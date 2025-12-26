@@ -1,30 +1,11 @@
-import Container from "@/components/layout/Container";
+import HomePageHero from "@/components/pages/homepage/HomePageHero";
+
+import styles from "@/styles/pages/HomePage.module.css";
 
 export default function Home() {
   return (
-    <section className="debugBorder gradientBG">
-      <Container>
-        <div
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <h1>Hello</h1>
-        </div>
-        <div
-          style={{
-            minHeight: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <h1>World</h1>
-        </div>
-      </Container>
-    </section>
+    <>
+      <HomePageHero sectionID={"hero"} styles={styles} />
+    </>
   );
 }

@@ -1,7 +1,10 @@
 import { DM_Sans } from "next/font/google";
 
+import { ThemeProvider } from "@mui/material";
+
 import Header from "@/components/layout/Header";
 
+import theme from "@/styles/mui/theme";
 import "@/styles/globals.css";
 
 const dmSans = DM_Sans({
@@ -18,8 +21,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${dmSans.variable}`}>
-        <Header />
-        <main>{children}</main>
+        <ThemeProvider theme={theme}>
+          <Header />
+          <main>{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );
