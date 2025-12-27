@@ -46,8 +46,8 @@ const HomePageHero = ({ sectionID, styles }) => {
           <FullWidthContainer
             image="assets/images/hero-image.png"
             align="right"
-            width="50%"
-            height="100vh"
+            width="45%"
+            height="95vh"
             mode="behind"
             objectFit="cover"
           />
@@ -175,8 +175,8 @@ const HomePageHero = ({ sectionID, styles }) => {
             </Grid>
           </div>
         </Container>
+        <Box sx={{ height: {xs:"96px", sm:"192px", lg:"384px"} }}></Box>
       </section>
-      <section style={{ height: "100vh" }}></section>
     </>
   );
 };
