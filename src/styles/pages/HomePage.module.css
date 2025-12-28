@@ -98,6 +98,65 @@
   color: var(--primary);
 }
 
+.specialisationSection {
+  min-height: 100vh;
+  background: var(--white);
+  border-top: 1px solid var(--primary);
+
+  h2 {
+    color: var(--primary);
+  }
+
+  p:nth-child(1) {
+    max-width: 700px;
+  }
+  p:nth-child(2) {
+    text-align: right;
+    max-width: 400px;
+  }
+}
+
+.specialisationCard {
+  min-height: 500px;
+  width: 100%;
+  background-color: black;
+  border-radius: var(--high-rounded);
+}
+
+.specialisationCard:nth-child(1) {
+  background-image: url("/assets/images/constitutional-law.png");
+  background-size: cover;
+  background-position: center;
+}
+.specialisationCard:nth-child(2) {
+  background-image: url("/assets/images/service-law.png");
+  background-size: cover;
+  background-position: center;
+}
+.specialisationCard:nth-child(3) {
+  background-image: url("/assets/images/regulatory-law.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.specialisationCardTitle {
+  color: var(--white);
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+}
+.specialisationCardSubTitle {
+  color: var(--white);
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+}
+.specialisationCardDescription {
+  color: var(--white);
+  display: block;
+  font-size: 16px;
+}
+
 @media (max-width: 1200px) and (min-width: 744px) {
   .coreExpertiseSection {
     border-radius: 60px 60px 0 0;
@@ -115,6 +174,27 @@
       min-width: 300px;
       max-width: 480px;
     }
+  }
+
+  .specialisationSection {
+    p:nth-child(1) {
+      max-width: 350px;
+      font-size: 14px;
+    }
+    p:nth-child(2) {
+      max-width: 320px;
+      font-size: 14px;
+    }
+  }
+
+  .specialisationCardTitle {
+    font-size: 18px;
+  }
+  .specialisationCardSubTitle {
+    font-size: 16px;
+  }
+  .specialisationCardDescription {
+    font-size: 14px;
   }
 }
 
@@ -154,6 +234,26 @@
 
   .lawFirmNote {
     max-width: 320px;
+    font-size: 14px;
+  }
+
+  .specialisationSection {
+    p:nth-child(2) {
+      text-align: left;
+    }
+  }
+
+  .specialisationCard {
+    min-height: 400px;
+  }
+
+  .specialisationCardTitle {
+    font-size: 18px;
+  }
+  .specialisationCardSubTitle {
+    font-size: 16px;
+  }
+  .specialisationCardDescription {
     font-size: 14px;
   }
 }
