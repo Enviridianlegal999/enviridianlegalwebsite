@@ -1,0 +1,6 @@
+.floatingSection {
+  position: absolute;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: var(--z-index-floating-section);
+}

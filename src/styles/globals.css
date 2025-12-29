@@ -9,6 +9,7 @@
   --mobile-padding: 20px;
 
   --container-padding: 96px;
+  --floating-container-compensation-padding: 240px;
 
   --debug-border: 1px dashed red;
 
@@ -57,6 +58,7 @@
   --z-index-hero-title-b: 32;
   --z-index-hero-title-c: 31;
   --z-index-header: 50;
+  --z-index-floating-section: 150;
   --z-index-header-mobile-menu: 200;
 
   --full-viewport-height: 100vh;
@@ -72,6 +74,12 @@ h1 {
 
 h2 {
   font-size: 48px;
+  color: var(--grey-1);
+}
+
+h5 {
+  font-size: 24px;
+  font-weight: 700px;
   color: var(--grey-1);
 }
 
@@ -137,6 +145,9 @@ a {
   h2 {
     font-size: 40px;
   }
+  h5 {
+    font-size: 20px;
+  }
   h6 {
     font-size: 14px;
   }
@@ -148,6 +159,9 @@ a {
   }
   h2 {
     font-size: 24px;
+  }
+  h5 {
+    font-size: 20px;
   }
   h6 {
     font-size: 16px;
