@@ -58,11 +58,14 @@
   justify-content: space-between;
 }
 
+/* Expertise Section */
+
 .coreExpertiseSection {
   min-height: 100vh;
   background: var(--white);
   border-radius: 196px 196px 0 0;
   margin-top: -196px;
+  padding-bottom: var(--container-padding);
 }
 
 .coreExpertiseCard {
@@ -98,10 +101,13 @@
   color: var(--primary);
 }
 
+/* Specialisation Section */
+
 .specialisationSection {
   min-height: 100vh;
-  background: var(--white);
+  background: var(--top-to-bottom-gradient-home-hero);
   border-top: 1px solid var(--primary);
+  padding-bottom: var(--container-padding);
 
   h2 {
     color: var(--primary);
@@ -119,7 +125,7 @@
 .specialisationCard {
   min-height: 500px;
   width: 100%;
-  background-color: black;
+  background-color: var(--white);
   border-radius: var(--high-rounded);
 }
 
@@ -153,6 +159,39 @@
 }
 .specialisationCardDescription {
   color: var(--white);
+  display: block;
+  font-size: 16px;
+}
+
+/* Services Section */
+
+.servicesSection {
+  min-height: 100vh;
+  background: var(--blue-tint-12);
+  border-top: 1px solid var(--primary);
+  padding-bottom: var(--container-padding);
+
+  h2 {
+    color: var(--primary);
+    text-align: center;
+  }
+}
+
+.servicesCard {
+  min-height: 400px;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: var(--high-rounded);
+}
+
+.servicesCardTitle {
+  color: var(--grey-1);
+  display: block;
+  font-size: 20px;
+  font-weight: 500;
+}
+.servicesCardDescription {
+  color: var(--grey-1);
   display: block;
   font-size: 16px;
 }

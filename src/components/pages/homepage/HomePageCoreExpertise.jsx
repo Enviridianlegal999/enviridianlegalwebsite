@@ -125,7 +125,7 @@ const HomePageCoreExpertise = ({ sectionID, styles }) => {
             </Stack>
           </Grid>
         </Grid>
-        <Stack alignItems={"center"} spacing={2} mb={6}>
+        <Stack alignItems={"center"} spacing={2}>
           <Box height={30} width={30} position={"relative"}>
             <Image
               src={scale}
