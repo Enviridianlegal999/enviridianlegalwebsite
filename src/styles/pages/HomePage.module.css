@@ -210,6 +210,12 @@
   }
 }
 
+.approachRightCapsule {
+  background: var(--blue-tint-13);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+}
+
 @media (max-width: 1200px) and (min-width: 744px) {
   .coreExpertiseSection {
     border-radius: 60px 60px 0 0;
