@@ -57,8 +57,8 @@
   --z-index-hero-title-a: 33;
   --z-index-hero-title-b: 32;
   --z-index-hero-title-c: 31;
+  --z-index-floating-section: 41;
   --z-index-header: 50;
-  --z-index-floating-section: 150;
   --z-index-header-mobile-menu: 200;
 
   --full-viewport-height: 100vh;
@@ -150,6 +150,9 @@ a {
   }
   h6 {
     font-size: 14px;
+  }
+  p{
+    font-size: 16px;
   }
 }
 

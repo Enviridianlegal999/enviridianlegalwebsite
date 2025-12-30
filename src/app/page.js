@@ -6,6 +6,7 @@ import FloatingSection from "@/components/ui/FloatingSection";
 import FloatingValues from "@/components/pages/homepage/FloatingValues";
 
 import styles from "@/styles/pages/HomePage.module.css";
+import HomePageApproach from "@/components/pages/homepage/HomePageApproach";
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
           valueNames={["Integrity", "Diligence", "Clarity", "Commitment"]}
         />
       </FloatingSection>
+      <HomePageApproach sectionID={"approach"} styles={styles} />
     </>
   );
 }
