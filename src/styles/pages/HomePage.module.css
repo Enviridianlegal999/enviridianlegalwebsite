@@ -216,6 +216,31 @@
   padding-bottom: var(--container-padding);
 }
 
+.testimonialsSection {
+  min-height: 50vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+
+  p {
+    font-weight: 500;
+  }
+}
+
+.testimonialsButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  background-color: var(--blue-tint-12);
+  color: var(--primary);
+  padding: 16px;
+  border-radius: var(--high-rounded);
+
+  &:hover {
+    background-color: var(--white);
+  }
+}
+
 @media (max-width: 1200px) and (min-width: 744px) {
   .coreExpertiseSection {
     border-radius: 60px 60px 0 0;
@@ -314,5 +339,11 @@
   }
   .specialisationCardDescription {
     font-size: 14px;
+  }
+
+  .testimonialsSection {
+    p {
+      font-size: 14px;
+    }
   }
 }
