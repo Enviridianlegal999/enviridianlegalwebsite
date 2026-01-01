@@ -1,0 +1,53 @@
+.footer {
+  background-color: var(--white);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+  border-top: 2px solid var(--grey-10);
+}
+
+.footer h4 {
+  font-size: 20px;
+  color: var(--primaryDark);
+  font-weight: 500;
+}
+
+.footer p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.footer h5 {
+  color: var(--grey-1);
+}
+
+.footer a {
+  text-decoration: none;
+  color: var(--grey-1);
+  font-weight: 500;
+}
+
+.footer a:hover {
+  color: var(--secondary);
+}
+
+@media (max-width: 1200px) and (min-width: 744px) {
+  .footerLogo {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 743px) {
+  .footerLogo {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer p {
+    font-size: 10px;
+  }
+
+  .tandc {
+    font-size: 10px;
+  }
+}
