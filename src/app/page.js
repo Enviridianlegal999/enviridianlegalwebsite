@@ -8,6 +8,7 @@ import FloatingValues from "@/components/pages/homepage/FloatingValues";
 import styles from "@/styles/pages/HomePage.module.css";
 import HomePageApproach from "@/components/pages/homepage/HomePageApproach";
 import HomePageTestimonials from "@/components/pages/homepage/HomePageTestimonials";
+import HomePageBlogPreview from "@/components/pages/homepage/HomePageBlogPreview";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
       </FloatingSection>
       <HomePageApproach sectionID={"approach"} styles={styles} />
       <HomePageTestimonials sectionID={"testimonials"} styles={styles} />
+      <HomePageBlogPreview sectionID={"blog-preview"} styles={styles} />
     </>
   );
 }
