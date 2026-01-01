@@ -4,11 +4,12 @@ import HomePageSpecialisation from "@/components/pages/homepage/HomePageSpeciali
 import HomePageServices from "@/components/pages/homepage/HomePageServices";
 import FloatingSection from "@/components/ui/FloatingSection";
 import FloatingValues from "@/components/pages/homepage/FloatingValues";
-
-import styles from "@/styles/pages/HomePage.module.css";
 import HomePageApproach from "@/components/pages/homepage/HomePageApproach";
 import HomePageTestimonials from "@/components/pages/homepage/HomePageTestimonials";
 import HomePageBlogPreview from "@/components/pages/homepage/HomePageBlogPreview";
+import HomePageCTA from "@/components/pages/homepage/HomePageCTA";
+
+import styles from "@/styles/pages/HomePage.module.css";
 
 export default function Home() {
   return (
@@ -31,6 +32,7 @@ export default function Home() {
       <HomePageApproach sectionID={"approach"} styles={styles} />
       <HomePageTestimonials sectionID={"testimonials"} styles={styles} />
       <HomePageBlogPreview sectionID={"blog-preview"} styles={styles} />
+      <HomePageCTA sectionID={"homepage-cta"} styles={styles} />
     </>
   );
 }
