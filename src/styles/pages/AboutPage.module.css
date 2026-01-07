@@ -23,6 +23,13 @@
   z-index: var(--z-index-hero-container);
 }
 
+.overviewSection {
+  min-height: fit-content;
+  background: var(--white);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+}
+
 /* Media Queries */
 
 @media (max-width: 1200px) and (min-width: 744px) {
