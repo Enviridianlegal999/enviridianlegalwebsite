@@ -30,6 +30,17 @@
   padding-bottom: var(--container-padding);
 }
 
+.storySection {
+  min-height: 70vh;
+  background: var(--white);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+
+  h3 {
+    color: var(--primary);
+  }
+}
+
 /* Media Queries */
 
 @media (max-width: 1200px) and (min-width: 744px) {
