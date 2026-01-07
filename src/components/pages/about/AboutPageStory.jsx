@@ -80,7 +80,7 @@ const AboutPageStory = ({ sectionID, styles }) => {
               }}
               alignItems={"center"}
             >
-              <Grid size={{ xs: 2, sm: 4, lg: 6 }}>A</Grid>
+              <Grid size={{ xs: 2, sm: 4, lg: 6 }}></Grid>
               <Grid size={{ xs: 10, sm: 8, lg: 6 }}>
                 <Stack spacing={2}>
                   <Box

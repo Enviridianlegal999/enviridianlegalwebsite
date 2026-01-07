@@ -41,6 +41,34 @@
   }
 }
 
+.teamSection {
+  min-height: fit-content;
+  background: var(--blue-tint-12);
+  border-top: 1px solid var(--primary);
+  padding-bottom: var(--container-padding);
+
+  h2 {
+    color: var(--primary);
+    text-align: center;
+  }
+}
+
+.teamCard {
+  min-height: 400px;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: var(--high-rounded);
+  border-bottom: 5px solid var(--primary);
+  
+  h4{
+    color: var(--primary);
+  }
+  
+  p{
+    color: var(--primaryLight);
+  }
+}
+
 /* Media Queries */
 
 @media (max-width: 1200px) and (min-width: 744px) {
