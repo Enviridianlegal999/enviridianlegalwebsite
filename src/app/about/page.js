@@ -1,5 +1,6 @@
 import AboutPageHero from "@/components/pages/about/AboutPageHero";
 import AboutPageOverview from "@/components/pages/about/AboutPageOverview";
+import AboutPageRecognition from "@/components/pages/about/AboutPageRecognition";
 import AboutPageStory from "@/components/pages/about/AboutPageStory";
 import AboutPageTeam from "@/components/pages/about/AboutPageTeam";
 import AboutPageUSP from "@/components/pages/about/AboutPageUSP";
@@ -14,6 +15,7 @@ export default function About() {
       <AboutPageStory sectionID="our-story" styles={styles} />
       <AboutPageTeam sectionID="our-team" styles={styles} />
       <AboutPageUSP sectionID="usp" styles={styles} />
+      <AboutPageRecognition sectionID="recognition" styles={styles} />
     </>
   );
 }
