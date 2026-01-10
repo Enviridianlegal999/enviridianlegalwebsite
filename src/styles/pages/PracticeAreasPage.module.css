@@ -23,6 +23,24 @@
   z-index: var(--z-index-hero-container);
 }
 
+.typesSection {
+  min-height: fit-content;
+  background: var(--blue-tint-12);
+  border-top: 1px solid var(--primary);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+
+  h2 {
+    color: var(--primary);
+  }
+}
+
+.typeNameCard {
+  h6 {
+    color: var(--primary);
+  }
+}
+
 @media (max-width: 1200px) and (min-width: 744px) {
   .heroImageSection {
     background-size: cover;
