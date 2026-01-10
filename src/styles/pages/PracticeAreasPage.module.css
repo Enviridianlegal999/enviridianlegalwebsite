@@ -41,6 +41,17 @@
   }
 }
 
+.ctaSection {
+  min-height: 50vh;
+  background: var(--primaryDark);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+
+  h3 {
+    color: var(--primary);
+  }
+}
+
 @media (max-width: 1200px) and (min-width: 744px) {
   .heroImageSection {
     background-size: cover;

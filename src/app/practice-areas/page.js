@@ -1,3 +1,4 @@
+import PracticeAreasPageCTA from "@/components/pages/practice-areas/PracticeAreasPageCTA";
 import PracticeAreasPageHero from "@/components/pages/practice-areas/PracticeAreasPageHero";
 import PracticeAreasTypes from "@/components/pages/practice-areas/PracticeAreasTypes";
 
@@ -8,6 +9,7 @@ export default function PracticeAreasPage() {
     <>
       <PracticeAreasPageHero sectionID="main" styles={styles} />
       <PracticeAreasTypes sectionID="types" styles={styles} />
+      <PracticeAreasPageCTA sectionID="cta" styles={styles} />
     </>
   );
 }
