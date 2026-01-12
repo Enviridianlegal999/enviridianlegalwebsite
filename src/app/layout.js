@@ -5,6 +5,8 @@ import { ThemeProvider } from "@mui/material";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
+import { AuthProvider } from "@/contexts/AuthContext";
+
 import theme from "@/styles/mui/theme";
 import "@/styles/globals.css";
 
@@ -22,11 +24,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${dmSans.variable}`}>
-        <ThemeProvider theme={theme}>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider theme={theme}>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

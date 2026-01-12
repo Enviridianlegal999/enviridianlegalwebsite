@@ -1,0 +1,20 @@
+.loginSection {
+  min-height: 100vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+
+  h4 {
+    color: var(--primary);
+  }
+}
+
+.dashboardSection {
+  min-height: 100vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+  h4 {
+    color: var(--primary);
+  }
+}
