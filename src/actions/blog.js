@@ -60,12 +60,22 @@ export async function getAllBlogsForPublic({
   limit = 9,
   status = "published",
   category = null,
+  search = null,
 }) {
   await dbConnect();
   const skip = (page - 1) * limit;
 
   const query = { status };
   if (category) query.category = category;
+
+  // 🔥 Search in title, excerpt, content
+  if (search) {
+    query.$or = [
+      { title: { $regex: search, $options: "i" } },
+      { excerpt: { $regex: search, $options: "i" } },
+      { content: { $regex: search, $options: "i" } },
+    ];
+  }
 
   const [blogs, total] = await Promise.all([
     Blog.find(query)

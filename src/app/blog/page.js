@@ -21,15 +21,17 @@ function categoryStyle(activeCategory, currentCategory) {
   };
 }
 
-function buttonStyle() {
+function buttonStyle(disabled = false) {
   return {
     padding: "0.75rem 1.5rem",
     border: "2px solid #e5e7eb",
     borderRadius: "0.5rem",
     backgroundColor: "white",
-    color: "#374151",
+    color: disabled ? "#9ca3af" : "#374151",
     textDecoration: "none",
     fontWeight: "500",
+    opacity: disabled ? 0.5 : 1,
+    cursor: disabled ? "not-allowed" : "pointer",
   };
 }
 
@@ -178,12 +180,14 @@ export default async function BlogPage({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const page = Number(resolvedSearchParams.page) || 1;
   const category = resolvedSearchParams.category || null;
+  const search = resolvedSearchParams.q || null;
 
   const { blogs, hasMore, total, limit } = await getAllBlogsForPublic({
     page,
     limit: 9,
     status: "published",
     category,
+    search,
   });
 
   return (
@@ -211,53 +215,109 @@ export default async function BlogPage({ searchParams }) {
               lineHeight: "1.6",
             }}
           >
-            Latest articles and insights
+            {search
+              ? `Search results for "${search}" (${total} found)`
+              : "Latest articles and insights"}
           </p>
         </div>
 
-        {/* Filter Categories */}
-        <div
-          style={{
-            marginBottom: "3rem",
-            display: "flex",
-            gap: "1rem",
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          <Link href="/blog" style={categoryStyle(null, category)}>
-            All
-          </Link>
-          <Link
-            href="/blog?category=Technology"
-            style={categoryStyle("Technology", category)}
+        {/* 🔥 WORKING SEARCH FORM + CATEGORIES */}
+        <div style={{ marginBottom: "3rem" }}>
+          {/* 🔥 Search Form - WORKS ON ENTER */}
+          <div
+            style={{
+              maxWidth: "500px",
+              margin: "0 auto 2rem auto",
+            }}
           >
-            Technology
-          </Link>
-          <Link
-            href="/blog?category=Lifestyle"
-            style={categoryStyle("Lifestyle", category)}
+            <form
+              action={`/blog${category ? `?category=${category}` : ""}`}
+              style={{ display: "contents" }}
+            >
+              <div style={{ position: "relative" }}>
+                <input
+                  type="text"
+                  name="q"
+                  placeholder="Search blogs..."
+                  defaultValue={search || ""}
+                  style={{
+                    width: "100%",
+                    padding: "0.875rem 1rem 0.875rem 3rem",
+                    border: search ? "2px solid #2563eb" : "2px solid #e5e7eb",
+                    borderRadius: "2rem",
+                    fontSize: "1rem",
+                    backgroundColor: "white",
+                    transition: "all 0.2s ease",
+                    outline: "none",
+                    boxShadow: search
+                      ? "0 0 0 3px rgba(37, 99, 235, 0.1)"
+                      : "none",
+                  }}
+                />
+                <svg
+                  style={{
+                    position: "absolute",
+                    left: "1rem",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: "20px",
+                    height: "20px",
+                    color: "#6b7280",
+                  }}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
+              </div>
+            </form>
+          </div>
+
+          {/* Filter Categories */}
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
           >
-            Lifestyle
-          </Link>
-          <Link
-            href="/blog?category=Business"
-            style={categoryStyle("Business", category)}
-          >
-            Business
-          </Link>
-          <Link
-            href="/blog?category=Travel"
-            style={categoryStyle("Travel", category)}
-          >
-            Travel
-          </Link>
-          <Link
-            href="/blog?category=Food"
-            style={categoryStyle("Food", category)}
-          >
-            Food
-          </Link>
+            <Link href="/blog" style={categoryStyle(null, category)}>
+              All
+            </Link>
+            <Link
+              href="/blog?category=Technology"
+              style={categoryStyle("Technology", category)}
+            >
+              Technology
+            </Link>
+            <Link
+              href="/blog?category=Lifestyle"
+              style={categoryStyle("Lifestyle", category)}
+            >
+              Lifestyle
+            </Link>
+            <Link
+              href="/blog?category=Business"
+              style={categoryStyle("Business", category)}
+            >
+              Business
+            </Link>
+            <Link
+              href="/blog?category=Travel"
+              style={categoryStyle("Travel", category)}
+            >
+              Travel
+            </Link>
+            <Link
+              href="/blog?category=Food"
+              style={categoryStyle("Food", category)}
+            >
+              Food
+            </Link>
+          </div>
         </div>
 
         {/* Blog Grid */}
@@ -285,7 +345,12 @@ export default async function BlogPage({ searchParams }) {
             }}
           >
             {page > 1 && (
-              <Link href={`/blog?page=${page - 1}`} style={buttonStyle()}>
+              <Link
+                href={`/blog?page=${page - 1}${
+                  search ? `&q=${encodeURIComponent(search)}` : ""
+                }${category ? `&category=${category}` : ""}`}
+                style={buttonStyle()}
+              >
                 ← Previous
               </Link>
             )}
@@ -302,7 +367,12 @@ export default async function BlogPage({ searchParams }) {
               Page {page} of {Math.ceil(total / limit)}
             </span>
             {hasMore && (
-              <Link href={`/blog?page=${page + 1}`} style={buttonStyle()}>
+              <Link
+                href={`/blog?page=${page + 1}${
+                  search ? `&q=${encodeURIComponent(search)}` : ""
+                }${category ? `&category=${category}` : ""}`}
+                style={buttonStyle()}
+              >
                 Next →
               </Link>
             )}
@@ -325,7 +395,7 @@ export default async function BlogPage({ searchParams }) {
                 opacity: 0.5,
               }}
             >
-              📝
+              {search ? "🔍" : "📝"}
             </div>
             <h2
               style={{
@@ -334,10 +404,14 @@ export default async function BlogPage({ searchParams }) {
                 fontWeight: "600",
               }}
             >
-              No blog posts yet
+              {search
+                ? `No results found for "${search}"`
+                : "No blog posts yet"}
             </h2>
             <p style={{ fontSize: "1.1rem" }}>
-              Check back later for new content!
+              {search
+                ? "Try different keywords or check back later for new content!"
+                : "Check back later for new content!"}
             </p>
           </div>
         )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -8,7 +8,7 @@ import { Box, Stack } from "@mui/material";
 
 import Container from "@/components/layout/Container";
 import { useAuth } from "@/contexts/AuthContext";
-import { getAllBlogs } from "@/actions/blog";
+import { getAllBlogsForPublic, deleteBlogAction } from "@/actions/blog";
 
 import styles from "@/styles/pages/Dashboard.module.css";
 
@@ -21,6 +21,27 @@ export default function BlogsList() {
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // 🔥 DELETE STATE
+  const [deletingBlogId, setDeletingBlogId] = useState(null);
+  const [deleteError, setDeleteError] = useState("");
+
+  // 🔥 Fixed debounce hook (moved outside component)
+  function useDebounce(callback, delay) {
+    useEffect(() => {
+      const handler = setTimeout(callback, delay);
+      return () => clearTimeout(handler);
+    }, [callback, delay]);
+  }
+
+  // 🔥 Debounced search
+  const debouncedSearch = useCallback(() => {
+    setPage(1); // Reset to page 1 on new search
+    fetchBlogs();
+  }, [searchTerm]);
+
+  useDebounce(debouncedSearch, 300); // 300ms delay
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -37,7 +58,11 @@ export default function BlogsList() {
     try {
       setLoadingBlogs(true);
       setError("");
-      const result = await getAllBlogs({ page, limit: 10 });
+      const result = await getAllBlogsForPublic({
+        page,
+        limit: 10,
+        search: searchTerm || undefined,
+      });
       setBlogs(result.blogs);
       setHasMore(result.hasMore);
     } catch (err) {
@@ -46,6 +71,37 @@ export default function BlogsList() {
       setLoadingBlogs(false);
     }
   }
+
+  // 🔥 DELETE FUNCTION
+  const handleDelete = async (blogId) => {
+    if (
+      !confirm(
+        `Are you sure you want to delete this blog? This action cannot be undone.`
+      )
+    ) {
+      return;
+    }
+
+    try {
+      setDeletingBlogId(blogId);
+      setDeleteError("");
+
+      const result = await deleteBlogAction(blogId);
+
+      if (result.success) {
+        // Refresh blogs list
+        await fetchBlogs();
+        alert("Blog deleted successfully!");
+      } else {
+        setDeleteError(result.message || "Failed to delete blog");
+      }
+    } catch (error) {
+      setDeleteError("Failed to delete blog. Please try again.");
+      console.error("Delete error:", error);
+    } finally {
+      setDeletingBlogId(null);
+    }
+  };
 
   if (loading)
     return (
@@ -102,6 +158,61 @@ export default function BlogsList() {
                 {error}
               </div>
             )}
+
+            {deleteError && (
+              <div
+                style={{
+                  backgroundColor: "#fef2f2",
+                  border: "1px solid #fecaca",
+                  color: "#dc2626",
+                  padding: "1rem",
+                  borderRadius: "0.5rem",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                {deleteError}
+              </div>
+            )}
+
+            <div style={{ marginBottom: "1.5rem" }}>
+              <div
+                style={{
+                  position: "relative",
+                  maxWidth: "400px",
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Search blogs by title..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  style={{
+                    width: "100%",
+                    padding: "0.75rem 1rem 0.75rem 2.5rem",
+                    border: "2px solid #e5e7eb",
+                    borderRadius: "0.5rem",
+                    fontSize: "1rem",
+                  }}
+                />
+                <svg
+                  style={{
+                    position: "absolute",
+                    left: "0.875rem",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    width: "18px",
+                    height: "18px",
+                    color: "#6b7280",
+                  }}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
+              </div>
+            </div>
 
             {loadingBlogs ? (
               <div
@@ -346,6 +457,7 @@ export default function BlogsList() {
                               fontWeight: "500",
                             }}
                           >
+                            {/* 🔥 VIEW BUTTON */}
                             <Link
                               href={`/admin/blogs/${blog.id}`}
                               style={{
@@ -361,6 +473,7 @@ export default function BlogsList() {
                             >
                               View
                             </Link>
+                            {/* 🔥 EDIT BUTTON */}
                             <Link
                               href={`/admin/blogs/${blog.id}/edit`}
                               style={{
@@ -377,6 +490,41 @@ export default function BlogsList() {
                             >
                               Edit
                             </Link>
+                            {/* 🔥 DELETE BUTTON */}
+                            <button
+                              onClick={() => handleDelete(blog.id)}
+                              disabled={deletingBlogId === blog.id}
+                              style={{
+                                color: "#dc2626",
+                                textDecoration: "none",
+                                marginLeft: "1rem",
+                                background: "none",
+                                border: "none",
+                                padding: "0.25rem 0.5rem",
+                                borderRadius: "0.25rem",
+                                cursor:
+                                  deletingBlogId === blog.id
+                                    ? "not-allowed"
+                                    : "pointer",
+                                fontSize: "0.875rem",
+                                fontWeight: "500",
+                                opacity: deletingBlogId === blog.id ? 0.5 : 1,
+                              }}
+                              onMouseOver={(e) => {
+                                if (deletingBlogId !== blog.id) {
+                                  e.target.style.backgroundColor = "#fef2f2";
+                                  e.target.style.color = "#b91c1c";
+                                }
+                              }}
+                              onMouseOut={(e) => {
+                                e.target.style.backgroundColor = "transparent";
+                                e.target.style.color = "#dc2626";
+                              }}
+                            >
+                              {deletingBlogId === blog.id
+                                ? "Deleting..."
+                                : "Delete"}
+                            </button>
                           </td>
                         </tr>
                       ))}
