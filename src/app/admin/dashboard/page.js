@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { Box, Button, Stack } from "@mui/material";
@@ -51,6 +52,7 @@ export default function Dashboard() {
         >
           <Stack spacing={4}>
             <h4>Admin Dashboard</h4>
+            <Link href="/admin/blogs">➡️Manage All Blogs</Link>
             <Button variant="outlined" color="error" onClick={logout}>
               Logout
             </Button>

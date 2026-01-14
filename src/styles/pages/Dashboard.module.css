@@ -18,3 +18,31 @@
     color: var(--primary);
   }
 }
+
+.blogsSection {
+  min-height: 100vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+}
+
+.blogCreateSection {
+  min-height: 100vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+}
+
+.viewBlogSection {
+  min-height: 100vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+}
+.editBlogSection {
+  min-height: 100vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-padding);
+  padding-bottom: var(--container-padding);
+}
+
