@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import { Box, Button, IconButton, Stack } from "@mui/material";
-import CallRoundedIcon from "@mui/icons-material/CallRounded";
+import { Box, IconButton, Stack } from "@mui/material";
 import KeyboardDoubleArrowDownRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowDownRounded";
 import KeyboardDoubleArrowUpRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowUpRounded";
 
@@ -16,15 +15,16 @@ import { headerNavItems } from "@/constants/links";
 import Container from "@/components/layout/Container";
 import DesktopNavbar from "@/components/layout/DesktopNavbar";
 import TabletNavbar from "@/components/layout/TabletNavbar";
+import CallUs from "@/components/popups/CallUs";
 
 import enviridianCompanyLogo from "../../../public/assets/company/enviridian-logo.svg";
 
-import { blackOutlinedButtonStyle } from "@/styles/mui/mui-custom-component";
 import styles from "@/styles/components/Header.module.css";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isReadyToCallPopup, setIsReadyToCallPopup] = useState(false);
 
   const SCROLL_NUDGE = 30; // ~ one mouse wheel tick
 
@@ -79,13 +79,10 @@ const Header = () => {
                 spacing={2}
               >
                 <TabletNavbar styles={styles} />
-                <Button
-                  variant="outlined"
-                  sx={blackOutlinedButtonStyle}
-                  endIcon={<CallRoundedIcon />}
-                >
-                  Call Us
-                </Button>
+                <CallUs
+                  open={isReadyToCallPopup}
+                  setOpen={setIsReadyToCallPopup}
+                />
               </Stack>
             </Box>
             <Box sx={{ display: { xs: "none", lg: "block" } }}>
@@ -96,13 +93,10 @@ const Header = () => {
                 spacing={5}
               >
                 <DesktopNavbar styles={styles} />
-                <Button
-                  variant="outlined"
-                  sx={blackOutlinedButtonStyle}
-                  endIcon={<CallRoundedIcon />}
-                >
-                  Call Us
-                </Button>
+                <CallUs
+                  open={isReadyToCallPopup}
+                  setOpen={setIsReadyToCallPopup}
+                />
               </Stack>
             </Box>
           </nav>
@@ -122,13 +116,10 @@ const Header = () => {
                     </li>
                   ))}
                 </ul>
-                <Button
-                  variant="outlined"
-                  sx={blackOutlinedButtonStyle}
-                  endIcon={<CallRoundedIcon />}
-                >
-                  Call Us
-                </Button>
+                <CallUs
+                  open={isReadyToCallPopup}
+                  setOpen={setIsReadyToCallPopup}
+                />
               </Stack>
             </nav>
           ) : null}
