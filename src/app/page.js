@@ -21,10 +21,10 @@ export default function Home() {
       <FloatingSection sectionID={"values"}>
         <FloatingValues
           bgImageUrls={[
-            "/assets/images/integrity.png",
-            "/assets/images/diligence.png",
-            "/assets/images/clarity.png",
-            "/assets/images/commitment.png",
+            "/assets/images/integrity.webp",
+            "/assets/images/diligence.webp",
+            "/assets/images/clarity.webp",
+            "/assets/images/commitment.webp",
           ]}
           valueNames={["Integrity", "Diligence", "Clarity", "Commitment"]}
         />

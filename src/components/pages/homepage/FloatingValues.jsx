@@ -5,7 +5,7 @@ const FloatingValues = ({ bgImageUrls, valueNames }) => {
     <Grid
       container
       sx={{
-        background: "var(--blue-tint-12)",
+        background: "var(--primary)",
         borderRadius: "var(--high-rounded)",
         padding: "30px",
         boxShadow: "var(--low-shadow)",
@@ -24,9 +24,9 @@ const FloatingValues = ({ bgImageUrls, valueNames }) => {
             <Box
               sx={{
                 borderRadius: "50%",
-                backgroundColor: "var(--white)",
+                backgroundColor: "var(--blue-tint-12)",
                 padding: "15px",
-                border: "1px solid var(--grey-10)",
+                border: "2px solid var(--secondary)",
               }}
             >
               <Box
@@ -42,7 +42,7 @@ const FloatingValues = ({ bgImageUrls, valueNames }) => {
                   alignItems: "center",
                 }}
               >
-                <h5>{valueNames[index]}</h5>
+                <h5 style={{ color: "var(--primary)" }}>{valueNames[index]}</h5>
               </Box>
             </Box>
           </Grid>
