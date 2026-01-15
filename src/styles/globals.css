@@ -9,6 +9,7 @@
   --mobile-padding: 20px;
 
   --container-padding: 96px;
+  --container-hero-top-padding: 192px;
   --floating-container-compensation-padding: 240px;
 
   --debug-border: 1px dashed red;
@@ -32,7 +33,7 @@
 
   --grey-1: #111111;
   --grey-10: #7b7b7b;
-  --grey-10-rgb: 123, 123, 123;
+  --grey-11-rgb: 180, 180, 180;
   
 
   --blue-tint-12: #e4edf9;

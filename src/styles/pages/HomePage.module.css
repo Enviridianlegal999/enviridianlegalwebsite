@@ -1,6 +1,7 @@
 .heroSection {
   min-height: 100vh;
   background: var(--top-to-bottom-gradient-home-hero);
+  padding-top: var(--container-hero-top-padding);
 }
 
 .heroContent {
