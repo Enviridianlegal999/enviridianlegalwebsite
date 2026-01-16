@@ -31,10 +31,11 @@
     #e4edf9
   );
 
+  --blog-linear-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
   --grey-1: #111111;
   --grey-10: #7b7b7b;
   --grey-11-rgb: 180, 180, 180;
-  
 
   --blue-tint-12: #e4edf9;
   --blue-tint-13: #f4f8fc;
