@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import * as motion from "motion/react-client";
+
 import { Grid, Rating, Stack } from "@mui/material";
 import WestRoundedIcon from "@mui/icons-material/WestRounded";
 import EastRoundedIcon from "@mui/icons-material/EastRounded";
@@ -9,11 +11,11 @@ import EastRoundedIcon from "@mui/icons-material/EastRounded";
 import Container from "@/components/layout/Container";
 import StackedCarousel from "@/components/ui/StackedCarousel";
 
-import rakesh from "../../../../public/assets/images/rakesh.png";
-import neha from "../../../../public/assets/images/neha.png";
-import abdul from "../../../../public/assets/images/abdul.png";
-import garima from "../../../../public/assets/images/garima.png";
-import anand from "../../../../public/assets/images/anand.png";
+import rakesh from "../../../../public/assets/images/rakesh.webp";
+import neha from "../../../../public/assets/images/neha.webp";
+import abdul from "../../../../public/assets/images/abdul.webp";
+import garima from "../../../../public/assets/images/garima.webp";
+import anand from "../../../../public/assets/images/anand.webp";
 
 const testimonials = [
   {
@@ -74,22 +76,36 @@ const HomePageTestimonials = ({ sectionID, styles }) => {
       <Container>
         <Grid container>
           <Grid size={{ xs: 12, sm: 6 }} py={5}>
-            <StackedCarousel activeIndex={activeIndex} cards={testimonials} />
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <StackedCarousel activeIndex={activeIndex} cards={testimonials} />
+            </motion.div>
           </Grid>
           <Grid size={{ xs: 12, sm: 6 }} display={"flex"}>
-            <Stack justifyContent={"space-around"} spacing={4}>
-              <h2>{testimonials[activeIndex].title}</h2>
-              <p>{testimonials[activeIndex].testimony}</p>
-              <Rating value={testimonials[activeIndex].rating} readOnly />
-              <Stack direction={"row"} spacing={2}>
-                <button className={styles.testimonialsButton} onClick={prev}>
-                  <WestRoundedIcon />
-                </button>
-                <button className={styles.testimonialsButton} onClick={next}>
-                  <EastRoundedIcon />
-                </button>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <Stack justifyContent={"space-around"} spacing={4}>
+                <h2>{testimonials[activeIndex].title}</h2>
+                <p>{testimonials[activeIndex].testimony}</p>
+                <Rating value={testimonials[activeIndex].rating} readOnly />
+                <Stack direction={"row"} spacing={2}>
+                  <button className={styles.testimonialsButton} onClick={prev}>
+                    <WestRoundedIcon />
+                  </button>
+                  <button className={styles.testimonialsButton} onClick={next}>
+                    <EastRoundedIcon />
+                  </button>
+                </Stack>
               </Stack>
-            </Stack>
+            </motion.div>
           </Grid>
         </Grid>
       </Container>
