@@ -32,7 +32,7 @@
 
 /* Image container */
 .fullWidthImage {
-  height: 100vh;
+  height: "100%";
   background-repeat: no-repeat;
   background-position: center center; /* default */
 }

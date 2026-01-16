@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 import Image from "next/image";
@@ -14,6 +15,7 @@ const PageCTA = ({
   ctaDescription,
   ctaButtonText,
   actionType,
+  linkUrl,
 }) => {
   const [isReadyToCallPopup, setIsReadyToCallPopup] = useState(false);
 
@@ -57,6 +59,15 @@ const PageCTA = ({
                   open={isReadyToCallPopup}
                   setOpen={setIsReadyToCallPopup}
                 />
+              ) : actionType === "internal-link" ? (
+                <Button
+                  component={Link}
+                  href={linkUrl}
+                  variant="contained"
+                  disableElevation
+                >
+                  {ctaButtonText}
+                </Button>
               ) : (
                 <Button variant="contained" disableElevation>
                   {ctaButtonText}

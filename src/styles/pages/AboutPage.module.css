@@ -2,7 +2,7 @@
   position: relative;
   min-height: var(--half-viewport-height);
   overflow: hidden;
-  background: url("/assets/images/about-page-hero.png");
+  background: url("/assets/images/about-page-hero.webp");
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -33,6 +33,11 @@
   background: var(--white);
   padding-top: var(--container-padding);
   padding-bottom: var(--container-padding);
+
+  h2{
+    color: var(--primary);
+  }
+
 }
 
 .storySection {

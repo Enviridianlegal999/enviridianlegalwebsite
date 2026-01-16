@@ -1,11 +1,12 @@
-import { Grid, Stack } from "@mui/material";
+import { Grid } from "@mui/material";
+
+import * as motion from "motion/react-client";
 
 import Container from "@/components/layout/Container";
 
 const AboutPageHero = ({ sectionID, styles }) => {
   return (
     <section id={sectionID} className={styles.heroImageSection}>
-      {/* Video Overlay (optional - for better text contrast) */}
       <div className={styles.heroOverlay}></div>
 
       <Container>
@@ -22,9 +23,15 @@ const AboutPageHero = ({ sectionID, styles }) => {
             justifyContent={"center"}
           >
             <Grid size={12} maxWidth={"fit-content"}>
-              <h1 className={`${styles.heroTitle} ${styles.aboutHeroTitle}`}>
-                About Enviridian Legal
-              </h1>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <h1 className={`${styles.heroTitle} ${styles.aboutHeroTitle}`}>
+                  About Enviridian Legal
+                </h1>
+              </motion.div>
             </Grid>
           </Grid>
         </div>

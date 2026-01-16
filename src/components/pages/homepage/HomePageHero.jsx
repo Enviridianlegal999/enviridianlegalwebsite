@@ -31,7 +31,7 @@ const HomePageHero = ({ sectionID, styles }) => {
             image="assets/images/hero-image.webp"
             align="right"
             width="45%"
-            height="95vh"
+            height="100%"
             mode="behind"
             objectFit="cover"
           />
