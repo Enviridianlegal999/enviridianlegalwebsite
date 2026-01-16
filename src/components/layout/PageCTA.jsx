@@ -1,9 +1,22 @@
+"use client";
+
+import { useState } from "react";
+
 import Image from "next/image";
 import { Box, Button, Grid, Stack } from "@mui/material";
 
 import Container from "./Container";
+import CallUs from "../popups/CallUs";
 
-const PageCTA = ({ ctaImage, ctaTitle, ctaDescription, ctaButtonText }) => {
+const PageCTA = ({
+  ctaImage,
+  ctaTitle,
+  ctaDescription,
+  ctaButtonText,
+  actionType,
+}) => {
+  const [isReadyToCallPopup, setIsReadyToCallPopup] = useState(false);
+
   return (
     <Container>
       <Box
@@ -39,9 +52,16 @@ const PageCTA = ({ ctaImage, ctaTitle, ctaDescription, ctaButtonText }) => {
             <Stack alignItems={"flex-start"} spacing={4}>
               <h3>{ctaTitle}</h3>
               <p>{ctaDescription}</p>
-              <Button variant="contained" disableElevation>
-                {ctaButtonText}
-              </Button>
+              {actionType === "call" ? (
+                <CallUs
+                  open={isReadyToCallPopup}
+                  setOpen={setIsReadyToCallPopup}
+                />
+              ) : (
+                <Button variant="contained" disableElevation>
+                  {ctaButtonText}
+                </Button>
+              )}
             </Stack>
           </Grid>
         </Grid>
