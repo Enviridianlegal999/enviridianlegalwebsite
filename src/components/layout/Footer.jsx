@@ -8,7 +8,15 @@ import { Divider, Grid, Stack } from "@mui/material";
 import Container from "@/components/layout/Container";
 
 import { socialLinks } from "@/constants/links";
-import { companyShortBio } from "@/constants/company";
+import {
+  companyAddress,
+  companyEmail,
+  companyOfficeTiming,
+  companyPhone,
+  companyShortBio,
+  companyWorkDays,
+  specialAppointment,
+} from "@/constants/company";
 
 import enviridianCompanyLogo from "../../../public/assets/company/enviridian-logo.svg";
 
@@ -35,7 +43,7 @@ const Footer = () => {
                 />
               </Link>
               <h4>Enviridian Legal (Law Firm)</h4>
-              <p>B 89, Greater Kailash 1,New Delhi 110048</p>
+              <p>{companyAddress}</p>
               <Stack
                 direction={"row"}
                 justifyContent={{ xs: "center", md: "left" }}
@@ -98,14 +106,14 @@ const Footer = () => {
             <Stack spacing={4}>
               <h5>Contact</h5>
               <Stack spacing={1}>
-                <a href={`tel:+91987654321`}>+91987654321</a>
-                <a href={`mailto:hello@enviridian.com`}>hello@enviridian.com</a>
+                <a href={`tel:${companyPhone}`}>{companyPhone}</a>
+                <a href={`mailto:${companyEmail}`}>{companyEmail}</a>
               </Stack>
               <Stack spacing={1}>
-                <p>Monday – Friday</p>
-                <p>9:30 AM to 7.30 PM</p>
+                <p>{companyWorkDays}</p>
+                <p>{companyOfficeTiming}</p>
               </Stack>
-              <p>Saturday, by appointment only.</p>
+              <p>{specialAppointment}</p>
             </Stack>
           </Grid>
         </Grid>
@@ -113,11 +121,11 @@ const Footer = () => {
         <Stack direction={"row"} justifyContent={"space-between"}>
           <p>© {currentYear} Enviridian Legal All rights reserved</p>
           <Stack spacing={1} direction={"row"}>
-            <Link href="/" className={styles.tandc}>
+            <Link href="/terms-and-conditions" className={styles.tandc}>
               Terms & Conditions
             </Link>
             <Divider orientation="vertical" />
-            <Link href="/" className={styles.tandc}>
+            <Link href="/privacy-policy" className={styles.tandc}>
               Privacy Policy
             </Link>
           </Stack>
