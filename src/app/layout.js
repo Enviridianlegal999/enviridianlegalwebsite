@@ -1,4 +1,5 @@
 import { DM_Sans } from "next/font/google";
+import localFont from "next/font/local";
 
 import { ThemeProvider } from "@mui/material";
 
@@ -9,6 +10,17 @@ import { AuthProvider } from "@/contexts/AuthContext";
 
 import theme from "@/styles/mui/theme";
 import "@/styles/globals.css";
+
+const pinland = localFont({
+  src: [
+    {
+      path: "../../public/fonts/Pinland-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+  ],
+  variable: "--font-pinland",
+});
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -23,7 +35,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable}`}>
+      <body className={`${dmSans.variable} ${pinland.variable}`}>
         <AuthProvider>
           <ThemeProvider theme={theme}>
             <Header />

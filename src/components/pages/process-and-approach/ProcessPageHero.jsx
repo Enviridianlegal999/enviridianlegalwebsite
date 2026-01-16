@@ -22,7 +22,9 @@ const ProcessPageHero = ({ sectionID, styles }) => {
             justifyContent={"center"}
           >
             <Grid size={12} maxWidth={"fit-content"}>
-              <h1 className={`${styles.heroTitle} gradientText`}>
+              <h1
+                className={`${styles.heroTitle} ${styles.processHeroTitle}`}
+              >
                 Our Process
               </h1>
             </Grid>

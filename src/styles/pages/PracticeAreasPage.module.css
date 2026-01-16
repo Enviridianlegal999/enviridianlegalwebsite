@@ -23,6 +23,11 @@
   z-index: var(--z-index-hero-container);
 }
 
+.practiceAreaHeroTitle {
+  font-family: var(--font-pinland);
+  letter-spacing: 4;
+}
+
 .typesSection {
   min-height: fit-content;
   background: var(--blue-tint-12);

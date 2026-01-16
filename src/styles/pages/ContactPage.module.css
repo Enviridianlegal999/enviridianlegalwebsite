@@ -23,6 +23,11 @@
   z-index: var(--z-index-hero-container);
 }
 
+.contactHeroTitle {
+  font-family: var(--font-pinland);
+  letter-spacing: 4;
+}
+
 .detailsSection {
   min-height: 100vh;
   background: var(--white);
@@ -39,4 +44,21 @@
   background: var(--blue-tint-13);
   padding-top: var(--container-padding);
   padding-bottom: var(--container-padding);
+}
+
+@media (max-width: 1200px) and (min-width: 744px) {
+  .heroImageSection {
+    background-size: cover;
+  }
+}
+
+@media (max-width: 743px) {
+  .heroTitle {
+    font-size: 34px;
+  }
+
+  .heroImageSection {
+    background-size: cover;
+    background-position: 75% center;
+  }
 }

@@ -23,6 +23,11 @@
   z-index: var(--z-index-hero-container);
 }
 
+.processHeroTitle {
+  font-family: var(--font-pinland);
+  letter-spacing: 4;
+}
+
 .stepsSection {
   min-height: 100vh;
   background: var(--white);

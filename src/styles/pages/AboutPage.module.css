@@ -23,6 +23,11 @@
   z-index: var(--z-index-hero-container);
 }
 
+.aboutHeroTitle {
+  font-family: var(--font-pinland);
+  letter-spacing: 4;
+}
+
 .overviewSection {
   min-height: fit-content;
   background: var(--white);
