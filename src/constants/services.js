@@ -6,7 +6,7 @@ export const services = [
     expertName: "Adesh Diwakar",
     expertDesignation: "Founder - Enviridian Law Firm",
     expertContactEmail: "adeshdiwakar@enviridian.com",
-    expertImage: "Adesh Diwakar.jpg",
+    expertImage: "Adesh Diwakar.webp",
   },
   {
     title: "Corporate & Commercial Law",
@@ -15,7 +15,7 @@ export const services = [
     expertName: "Anil Kushwani",
     expertDesignation: "Partner - Enviridian Law Firm",
     expertContactEmail: "anilkushwani@enviridian.com",
-    expertImage: "Anil Kushwani.jpg",
+    expertImage: "Anil Kushwani.webp",
   },
   {
     title: "Litigation & Dispute Resolution",
@@ -24,7 +24,7 @@ export const services = [
     expertName: "Sarojni Singh",
     expertDesignation: "Associate - Enviridian Law Firm",
     expertContactEmail: "sarojnisingh@enviridian.com",
-    expertImage: "Sarojni Singh.jpg",
+    expertImage: "Sarojni Singh.webp",
   },
   {
     title: "Publishing & Media Law",
@@ -33,7 +33,7 @@ export const services = [
     expertName: "Samrat Rawat",
     expertDesignation: "Associate - Enviridian Law Firm",
     expertContactEmail: "samratrawat@enviridian.com",
-    expertImage: "Samrat Rawat.jpg",
+    expertImage: "Samrat Rawat.webp",
   },
   {
     title: "Intellectual Property",
@@ -42,7 +42,7 @@ export const services = [
     expertName: "Adesh Diwakar",
     expertDesignation: "Founder - Enviridian Law Firm",
     expertContactEmail: "adeshdiwakar@enviridian.com",
-    expertImage: "Adesh Diwakar.jpg",
+    expertImage: "Adesh Diwakar.webp",
   },
   {
     title: "Real Estate & Property",
@@ -51,7 +51,7 @@ export const services = [
     expertName: "Anil Kushwani",
     expertDesignation: "Partner - Enviridian Law Firm",
     expertContactEmail: "anilkushwani@enviridian.com",
-    expertImage: "Anil Kushwani.jpg",
+    expertImage: "Anil Kushwani.webp",
   },
   {
     title: "Arbitration & Mediation",
@@ -60,7 +60,7 @@ export const services = [
     expertName: "Sarojni Singh",
     expertDesignation: "Associate - Enviridian Law Firm",
     expertContactEmail: "sarojnisingh@enviridian.com",
-    expertImage: "Sarojni Singh.jpg",
+    expertImage: "Sarojni Singh.webp",
   },
   {
     title: "Advisory & Compliance",
@@ -69,7 +69,7 @@ export const services = [
     expertName: "Sarojni Singh",
     expertDesignation: "Associate - Enviridian Law Firm",
     expertContactEmail: "sarojnisingh@enviridian.com",
-    expertImage: "Sarojni Singh.jpg",
+    expertImage: "Sarojni Singh.webp",
   },
   {
     title: "Regulatory & Compliance Advisory",
@@ -78,7 +78,7 @@ export const services = [
     expertName: "Samrat Rawat",
     expertDesignation: "Associate - Enviridian Law Firm",
     expertContactEmail: "samratrawat@enviridian.com",
-    expertImage: "Samrat Rawat.jpg",
+    expertImage: "Samrat Rawat.webp",
   },
 ];
 

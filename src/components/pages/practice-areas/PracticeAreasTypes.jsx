@@ -2,15 +2,18 @@
 
 import { useState } from "react";
 
-import { Box, Button, Grid, IconButton, Stack } from "@mui/material";
+import * as motion from "motion/react-client";
+
+import { Box, Grid, IconButton, Stack } from "@mui/material";
 import KeyboardBackspaceRoundedIcon from "@mui/icons-material/KeyboardBackspaceRounded";
 
 import Container from "@/components/layout/Container";
+import GetFreeConsultation from "@/components/popups/GetFreeConsultation";
 
-import { blackOutlinedButtonStyle } from "@/styles/mui/mui-custom-component";
 import { services, workshopService } from "@/constants/services";
 
 const PracticeAreasTypes = ({ sectionID, styles }) => {
+  const [isGetFreeConsultation, setIsGetFreeConsultation] = useState(false);
   const [selectedType, setSelectedType] = useState(null);
 
   return (
@@ -18,52 +21,73 @@ const PracticeAreasTypes = ({ sectionID, styles }) => {
       <Container>
         <Grid container minHeight={"80vh"} spacing={4}>
           <Grid
-            size={{ xs: 12, sm: 4, lg: 3 }}
-            bgcolor={"var(--blue-tint-13)"}
-            padding={2}
+            size={{ xs: 12, sm: 12, lg: 4 }}
+            bgcolor={"var(--white)"}
+            p={{ xs: 2, sm: 4 }}
+            borderRadius={"var(--high-rounded)"}
           >
-            <Stack spacing={4} alignItems={"flex-start"}>
-              <h3>Solutions for diverse legal needs</h3>
-              <p>
-                Enveridian Legal handles a full spectrum of commercial and civil
-                matters. Below are our core practice areas
-              </p>
-              <Button variant="outlined" sx={blackOutlinedButtonStyle}>
-                Take Help
-              </Button>
-            </Stack>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <Stack spacing={4} alignItems={"flex-start"}>
+                <h2>Solutions For Diverse Legal Needs</h2>
+                <p>
+                  Enveridian Legal handles a full spectrum of commercial and
+                  civil matters. These are our core practice areas.
+                </p>
+
+                <GetFreeConsultation
+                  variant={"outlined"}
+                  color={"primary"}
+                  title="Get Solution"
+                  open={isGetFreeConsultation}
+                  setOpen={setIsGetFreeConsultation}
+                />
+              </Stack>
+            </motion.div>
           </Grid>
           <Grid
-            size={{ xs: 12, sm: 8, lg: 9 }}
-            bgcolor={"var(--blue-tint-13)"}
-            padding={2}
+            size={{ xs: 12, sm: 12, lg: 8 }}
+            p={{ xs: 2, sm: 4 }}
+            bgcolor={"var(--white)"}
+            borderRadius={"var(--high-rounded)"}
+            display="flex"
+            flexDirection="column"
+            minHeight={"80vh"}
           >
-            <Box
-              height={"80%"}
-              sx={{ overflowY: { xs: "scroll", lg: "auto" }, paddingBottom: 2 }}
-            >
+            <Box paddingBottom={{ xs: 2, sm: 4 }} flex={1}>
               <Box display={!selectedType ? "block" : "none"}>
                 <Grid container spacing={2}>
                   {services.map((service, index) => (
                     <Grid
                       size={{ xs: 12, sm: 12, lg: 6 }}
                       key={`${index} ${service.title}`}
-                      className={styles.typeNameCard}
                     >
-                      <Box
-                        sx={{
-                          bgcolor: "var(--white)",
-                          padding: "20px",
-                          borderRadius: "var(--high-rounded)",
-                          boxShadow: "var(--low-shadow)",
-                          borderLeft: "5px solid var(--primary)",
-                          borderRight: "5px solid var(--primary)",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => setSelectedType(service)}
+                      <motion.div
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: 0.4 }}
+                        viewport={{ once: true }}
                       >
-                        <h6>{service.title}</h6>
-                      </Box>
+                        <Box
+                          sx={{
+                            bgcolor: "var(--white)",
+                            borderRadius: "var(--high-rounded)",
+                            boxShadow: "var(--low-shadow)",
+                            borderLeft: "5px solid var(--primary)",
+                            borderRight: "5px solid var(--primary)",
+                            cursor: "pointer",
+                          }}
+                          className={styles.typeNameCard}
+                          p={{ xs: 2, sm: 4 }}
+                          onClick={() => setSelectedType(service)}
+                        >
+                          <h6>{service.title}</h6>
+                        </Box>
+                      </motion.div>
                     </Grid>
                   ))}
                 </Grid>
@@ -77,13 +101,12 @@ const PracticeAreasTypes = ({ sectionID, styles }) => {
                   >
                     <KeyboardBackspaceRoundedIcon />
                   </IconButton>
-                  <Box width={"100%"} border={1}></Box>
                   <Stack spacing={2} width={"100%"}>
                     <h3>{selectedType?.title}</h3>
                     <p>{selectedType?.description}</p>
                     <Stack
-                      direction={"row"}
-                      spacing={1}
+                      direction={{ xs: "column", sm: "row" }}
+                      spacing={2}
                       display={
                         selectedType?.title ===
                         "Client Workshops & Legal Training"
@@ -95,22 +118,27 @@ const PracticeAreasTypes = ({ sectionID, styles }) => {
                         sx={{
                           height: "220px",
                           width: "200px",
+                          borderRadius: "var(--high-rounded)",
+                          overflow: "clip",
                         }}
                       >
-                        <img
-                          src={`/assets/images/${selectedType?.expertImage}`}
-                          alt={selectedType?.expertName}
-                          width={"100%"}
-                          height={"100%"}
-                          style={{
-                            objectFit: "cover",
-                          }}
-                        />
+                        {selectedType?.expertImage ? (
+                          <img
+                            src={`/assets/images/${selectedType.expertImage}`}
+                            alt={selectedType?.expertName}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              display: "block",
+                            }}
+                          />
+                        ) : null}
                       </Box>
-                      <Box>
+                      <Box p={1}>
                         <Stack spacing={2}>
                           <h4>Expert</h4>
-                          <Box width={"100%"} border={1}></Box>
+                          <hr />
                           <h6>{selectedType?.expertName}</h6>
                           <p>{selectedType?.expertDesignation}</p>
                           <a
@@ -128,40 +156,55 @@ const PracticeAreasTypes = ({ sectionID, styles }) => {
                           ? "block"
                           : "none"
                       }
+                      pt={4}
                     >
-                      <Button variant="outlined">Enquire Now</Button>
+                      <GetFreeConsultation
+                        variant={"contained"}
+                        color={"primary"}
+                        title="Enquire Now"
+                        open={isGetFreeConsultation}
+                        setOpen={setIsGetFreeConsultation}
+                      />
                     </Box>
                   </Stack>
                 </Stack>
               </Box>
             </Box>
-            <Box
-              bgcolor={"var(--blue-tint-12)"}
-              height={"20%"}
-              padding={2}
-              display={
-                selectedType?.title === "Client Workshops & Legal Training"
-                  ? "none"
-                  : "block"
-              }
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.6 }}
+              viewport={{ once: true }}
             >
               <Box
-                sx={{
-                  width: "fit-content",
-                  bgcolor: "var(--white)",
-                  padding: "20px",
-                  borderRadius: "var(--high-rounded)",
-                  boxShadow: "var(--low-shadow)",
-                  borderLeft: "5px solid var(--primary)",
-                  borderRight: "5px solid var(--primary)",
-                  cursor: "pointer",
-                }}
-                className={styles.typeNameCard}
-                onClick={() => setSelectedType(workshopService)}
+                bgcolor={"var(--blue-tint-13)"}
+                p={{ xs: 2, sm: 4 }}
+                display={
+                  selectedType?.title === "Client Workshops & Legal Training"
+                    ? "none"
+                    : "block"
+                }
+                borderRadius={"var(--high-rounded)"}
+                flexShrink={0}
               >
-                <h6>Client Workshops & Legal Training</h6>
+                <Box
+                  sx={{
+                    width: "fit-content",
+                    bgcolor: "var(--white)",
+                    borderRadius: "var(--high-rounded)",
+                    boxShadow: "var(--low-shadow)",
+                    borderLeft: "5px solid var(--primary)",
+                    borderRight: "5px solid var(--primary)",
+                    cursor: "pointer",
+                  }}
+                  p={{ xs: 2, sm: 4 }}
+                  className={styles.typeNameCard}
+                  onClick={() => setSelectedType(workshopService)}
+                >
+                  <h6>Client Workshops & Legal Training</h6>
+                </Box>
               </Box>
-            </Box>
+            </motion.div>
           </Grid>
         </Grid>
       </Container>

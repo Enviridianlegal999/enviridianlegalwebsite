@@ -46,6 +46,10 @@
   }
 }
 
+.typeNameCard:hover {
+  background-color: var(--blue-tint-12);
+}
+
 .ctaSection {
   min-height: 50vh;
   background: var(--primaryDark);
