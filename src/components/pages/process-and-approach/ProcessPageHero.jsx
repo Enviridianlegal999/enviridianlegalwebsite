@@ -1,3 +1,5 @@
+import * as motion from "motion/react-client";
+
 import { Grid } from "@mui/material";
 
 import Container from "@/components/layout/Container";
@@ -22,11 +24,17 @@ const ProcessPageHero = ({ sectionID, styles }) => {
             justifyContent={"center"}
           >
             <Grid size={12} maxWidth={"fit-content"}>
-              <h1
-                className={`${styles.heroTitle} ${styles.processHeroTitle}`}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
               >
-                Our Process
-              </h1>
+                <h1
+                  className={`${styles.heroTitle} ${styles.processHeroTitle}`}
+                >
+                  Our Process
+                </h1>
+              </motion.div>
             </Grid>
           </Grid>
         </div>

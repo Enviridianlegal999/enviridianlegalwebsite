@@ -1,5 +1,7 @@
 import { Box, Grid } from "@mui/material";
 
+import * as motion from "motion/react-client";
+
 const ProcessStepRightToLeft = ({
   stepTitle,
   stepDescription,
@@ -19,7 +21,7 @@ const ProcessStepRightToLeft = ({
         >
           {isImage ? (
             <img
-              src={`/assets/images/${stepImage}.jpg`}
+              src={`/assets/images/${stepImage}.webp`}
               alt={stepImage}
               width={"100%"}
               style={{ objectFit: "cover", display: "block" }}
@@ -59,10 +61,17 @@ const ProcessStepRightToLeft = ({
             borderTop={{ xs: "2px solid var(--grey-1)", sm: "none" }}
             py={2}
           >
-            <Box pr={2} textAlign={"right"}>
-              <h3>{stepTitle}</h3>
-              <p>{stepDescription}</p>
-            </Box>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <Box pr={2} textAlign={"right"}>
+                <h3>{stepTitle}</h3>
+                <p>{stepDescription}</p>
+              </Box>
+            </motion.div>
           </Grid>
         </Grid>
       </Grid>

@@ -2,7 +2,7 @@
   position: relative;
   min-height: var(--half-viewport-height);
   overflow: hidden;
-  background: url("/assets/images/process-page-hero.jpg");
+  background: url("/assets/images/process-page-hero.webp");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
