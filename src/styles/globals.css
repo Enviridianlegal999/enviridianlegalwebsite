@@ -73,6 +73,7 @@
   --z-index-floating-section: 41;
   --z-index-header: 50;
   --z-index-header-mobile-menu: 200;
+  --z-index-chat-bot: 500;
 
   --full-viewport-height: 100vh;
   --half-viewport-height: 60vh;

@@ -5,6 +5,7 @@ import { ThemeProvider } from "@mui/material";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import ChatBox from "@/components/popups/ChatBox";
 
 import { AuthProvider } from "@/contexts/AuthContext";
 
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
             <Header />
             <main>{children}</main>
             <Footer />
+            <ChatBox />
           </ThemeProvider>
         </AuthProvider>
       </body>
