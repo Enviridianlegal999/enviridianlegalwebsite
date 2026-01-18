@@ -1,5 +1,7 @@
 import { Grid } from "@mui/material";
 
+import * as motion from "motion/react-client";
+
 import Container from "@/components/layout/Container";
 
 const ContactPageHero = ({ sectionID, styles }) => {
@@ -22,9 +24,17 @@ const ContactPageHero = ({ sectionID, styles }) => {
             justifyContent={"center"}
           >
             <Grid size={12} maxWidth={"fit-content"}>
-              <h1 className={`${styles.heroTitle} ${styles.contactHeroTitle}`}>
-                Contact Us
-              </h1>
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <h1
+                  className={`${styles.heroTitle} ${styles.contactHeroTitle}`}
+                >
+                  Contact Us
+                </h1>
+              </motion.div>
             </Grid>
           </Grid>
         </div>
