@@ -77,7 +77,6 @@
     font-weight: 700;
     color: var(--primary);
   }
-  
 }
 
 .similarBlogCard {
@@ -92,3 +91,143 @@
     color: var(--grey-10);
   }
 }
+
+/* Markdown CSS */
+
+.markdownContainer {
+  line-height: 1.8;
+  color: var(--black);
+}
+
+/* 1. Headings */
+.markdownContainer h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+  color: var(--primaryDark);
+}
+
+.markdownContainer h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+  color: var(--primaryDark);
+}
+
+.markdownContainer h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+  color: var(--primary);
+}
+
+/* 2. Text Elements */
+.markdownContainer p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color: var(--grey-1);
+}
+
+.markdownContainer a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.markdownContainer a:hover {
+  color: var(--primaryDark);
+}
+
+/* 3. Lists */
+.markdownContainer ul,
+.markdownContainer ol {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+}
+
+.markdownContainer li {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+.markdownContainer li::marker {
+  color: var(--primary);
+  font-weight: bold;
+}
+
+/* 4. Blockquotes */
+.markdownContainer blockquote {
+  border-left: 4px solid var(--secondary);
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  margin: 2rem 0;
+  background-color: var(--blue-tint-13);
+  font-style: italic;
+  border-radius: 0 8px 8px 0;
+}
+
+.markdownContainer blockquote p {
+  margin-bottom: 0;
+}
+
+/* 5. Tables */
+.markdownContainer table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--bg);
+}
+
+.markdownContainer th {
+  background-color: var(--bg);
+  font-weight: 700;
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid var(--grey-low);
+}
+
+.markdownContainer td {
+  padding: 12px;
+  border-bottom: 1px solid var(--bg);
+}
+
+/* 6. Code Blocks */
+.markdownContainer code {
+  background-color: #f5f5f5;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.markdownContainer pre {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.markdownContainer pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+/* 7. Images */
+.markdownContainer img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 2rem auto;
+  display: block;
+  box-shadow: var(--low-shadow);
+}
+
+/* Markdown CSS */

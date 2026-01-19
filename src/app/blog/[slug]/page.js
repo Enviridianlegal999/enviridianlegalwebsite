@@ -175,78 +175,8 @@ export default async function BlogPost({ params }) {
               </Stack>
 
               {/* Markdown Content */}
-              <Box>
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    h2: ({ children }) => (
-                      <Typography
-                        variant="h4"
-                        sx={{
-                          color: "var(--primaryDark)",
-                          fontWeight: 700,
-                          mt: 4,
-                          mb: 2,
-                        }}
-                      >
-                        {children}
-                      </Typography>
-                    ),
-                    h3: ({ children }) => (
-                      <Typography
-                        variant="h5"
-                        sx={{
-                          color: "var(--primary)",
-                          fontWeight: 700,
-                          mt: 3,
-                          mb: 1.5,
-                        }}
-                      >
-                        {children}
-                      </Typography>
-                    ),
-                    p: ({ children }) => (
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          color: "var(--grey-1)",
-                          lineHeight: 1.8,
-                          mb: 2.5,
-                          fontSize: "1.1rem",
-                        }}
-                      >
-                        {children}
-                      </Typography>
-                    ),
-                    a: ({ children, href }) => (
-                      <Link
-                        href={href}
-                        style={{
-                          color: "var(--primary)",
-                          fontWeight: 600,
-                          textDecoration: "underline",
-                        }}
-                      >
-                        {children}
-                      </Link>
-                    ),
-                    blockquote: ({ children }) => (
-                      <Box
-                        sx={{
-                          borderLeft: "4px solid var(--secondary)",
-                          pl: 3,
-                          py: 1,
-                          my: 3,
-                          backgroundColor: "var(--blue-tint-13)",
-                          fontStyle: "italic",
-                          borderRadius: "0 8px 8px 0",
-                        }}
-                      >
-                        {children}
-                      </Box>
-                    ),
-                  }}
-                >
+              <Box className={styles.markdownContainer}>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {/* USE THE CLEANED CONTENT HERE */}
                   {cleanContent}
                 </ReactMarkdown>

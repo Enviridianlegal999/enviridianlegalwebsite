@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import MDEditor from "@uiw/react-md-editor";
+import imageCompression from 'browser-image-compression';
 
 // MUI Components
 import {
@@ -67,11 +68,36 @@ export default function CreateBlog() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
+    if (!file) return;
+
+    // 1. Show preview immediately so the UI feels fast
+    setImagePreview(URL.createObjectURL(file));
+
+    // 2. Settings for compression
+    const options = {
+      maxSizeMB: 1, // Target size under 1MB
+      maxWidthOrHeight: 1920, // Max dimension (Full HD)
+      useWebWorker: true, // Better performance
+      fileType: "image/webp", // Convert to webp on the client side
+    };
+
+    try {
+      // 3. Compress the image
+      const compressedFile = await imageCompression(file, options);
+
+      // 4. Update state with the small file
+      setCoverImage(compressedFile);
+
+      console.log(`Original size: ${(file.size / 1024 / 1024).toFixed(2)} MB`);
+      console.log(
+        `Compressed size: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`,
+      );
+    } catch (error) {
+      console.error("Compression Error:", error);
+      // Fallback: if compression fails, use original file
       setCoverImage(file);
-      setImagePreview(URL.createObjectURL(file));
     }
   };
 
