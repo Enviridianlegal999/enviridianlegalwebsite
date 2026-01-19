@@ -1,384 +1,314 @@
 import Image from "next/image";
+import Link from "next/link";
+
 import { notFound } from "next/navigation";
+
 import ReactMarkdown from "react-markdown";
+
+import remarkGfm from "remark-gfm";
+import {
+  Box,
+  Typography,
+  Stack,
+  Chip,
+  Avatar,
+  Grid,
+  Divider,
+  Card,
+} from "@mui/material";
 
 import Container from "@/components/layout/Container";
 import { getBlogBySlug, getAllBlogsForPublic } from "@/actions/blog";
+import { stripFrontmatter } from "@/utils/markdownUtils";
 
 import styles from "@/styles/pages/Blog.module.css";
 
+// --- Styled Related Post Component ---
 function RelatedPost({ blog }) {
   return (
-    <a
-      href={`/blog/${blog.slug}`}
-      style={{
-        display: "flex",
-        gap: "1rem",
-        padding: "1rem",
-        textDecoration: "none",
-        color: "inherit",
-        border: "1px solid #e5e7eb",
-        borderRadius: "0.5rem",
-        transition: "all 0.2s ease",
-      }}
-    >
-      {blog.coverImage ? (
-        <div
-          style={{
-            width: "80px",
-            height: "60px",
+    <Link href={`/blog/${blog.slug}`} style={{ textDecoration: "none" }}>
+      <Card
+        elevation={0}
+        sx={{
+          display: "flex",
+          gap: 2,
+          p: 1.5,
+          borderRadius: "var(--high-rounded)",
+          border: "1px solid var(--bg)",
+          transition: "0.3s",
+          "&:hover": {
+            boxShadow: "var(--low-shadow)",
+            borderColor: "var(--primaryLight)",
+          },
+        }}
+        className={styles.similarBlogCard}
+      >
+        <Box
+          sx={{
+            width: 80,
+            height: 60,
+            position: "relative",
+            borderRadius: "var(--low-rounded)",
             overflow: "hidden",
-            borderRadius: "0.375rem",
             flexShrink: 0,
+            background: "var(--blog-linear-gradient)",
           }}
         >
-          <Image
-            src={blog.coverImage}
-            alt={blog.title}
-            fill
-            style={{ objectFit: "cover" }}
-            sizes="80px"
-          />
-        </div>
-      ) : (
-        <div
-          style={{
-            width: "80px",
-            height: "60px",
-            background: "#e5e7eb",
-            borderRadius: "0.375rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-          }}
-        >
-          📝
-        </div>
-      )}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <h4
-          style={{
-            fontSize: "0.95rem",
-            fontWeight: "600",
-            color: "#111",
-            marginBottom: "0.25rem",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {blog.title}
-        </h4>
-        <p
-          style={{
-            fontSize: "0.8rem",
-            color: "#6b7280",
-            margin: 0,
-          }}
-        >
-          {blog.category} • {new Date(blog.publishedAt).toLocaleDateString()}
-        </p>
-      </div>
-    </a>
+          {blog.coverImage ? (
+            <Image
+              src={blog.coverImage}
+              alt={blog.title}
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="80px"
+            />
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+              }}
+            >
+              📝
+            </Box>
+          )}
+        </Box>
+        <Box sx={{ minWidth: 0 }}>
+          <h6>{blog.title}</h6>
+          <span>{blog.category}</span>
+        </Box>
+      </Card>
+    </Link>
   );
 }
 
-export default async function BlogPost({ params, searchParams }) {
-  const resolvedParams = await params;
-  const slug = resolvedParams.slug;
-
-  // Fetch current blog
+export default async function BlogPost({ params }) {
+  const { slug } = await params;
   const blog = await getBlogBySlug(slug);
-  if (!blog) {
-    notFound();
-  }
 
-  console.log({ blog });
+  if (!blog) notFound();
 
-  // Fetch 3 related blogs (same category, exclude current)
+  // 1. Prepare the clean content by stripping frontmatter
+  const cleanContent = stripFrontmatter(blog.content);
+
   const relatedBlogsResult = await getAllBlogsForPublic({
     page: 1,
-    limit: 3,
+    limit: 4, // Fetch 4 to filter out current and keep 3
     status: "published",
     category: blog.category,
   });
-  const relatedBlogs = relatedBlogsResult.blogs.filter((b) => b.id !== blog.id);
+  const relatedBlogs = relatedBlogsResult.blogs
+    .filter((b) => b.id !== blog.id)
+    .slice(0, 3);
 
   return (
     <section id={"view-single-blog"} className={styles.singleBlogSection}>
       <Container>
-        <article style={{ marginBottom: "4rem" }}>
-          {/* Cover Image */}
-          {blog.coverImage && (
-            <div
-              style={{
-                height: "400px",
-                overflow: "hidden",
-                borderRadius: "1rem",
-                marginBottom: "2rem",
-                position: "relative",
-              }}
-            >
-              <Image
-                src={blog.coverImage}
-                alt={blog.title}
-                fill
-                style={{ objectFit: "cover" }}
-                sizes="100vw"
-                priority
-              />
-            </div>
-          )}
-
-          {/* Category & Date */}
-          <div
-            style={{
-              display: "flex",
-              gap: "1rem",
-              alignItems: "center",
-              marginBottom: "1rem",
-              flexWrap: "wrap",
-            }}
-          >
-            <span
-              style={{
-                padding: "0.25rem 0.75rem",
-                backgroundColor: "#dbeafe",
-                color: "#1e40af",
-                fontSize: "0.8rem",
-                fontWeight: "600",
-                borderRadius: "9999px",
-              }}
-            >
-              {blog.category}
-            </span>
-            <span
-              style={{
-                color: "#6b7280",
-                fontSize: "0.9rem",
-              }}
-            >
-              {new Date(blog.publishedAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
-          </div>
-
-          {/* Title */}
-          <h1
-            style={{
-              fontSize: "3rem",
-              fontWeight: "bold",
-              color: "#111",
-              marginBottom: "1.5rem",
-              lineHeight: "1.2",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            {blog.title}
-          </h1>
-
-          {/* Author */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              marginBottom: "2rem",
-              paddingBottom: "1.5rem",
-              borderBottom: "1px solid #e5e7eb",
-            }}
-          >
-            <div
-              style={{
-                width: "40px",
-                height: "40px",
-                borderRadius: "50%",
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "white",
-                fontWeight: "600",
-                fontSize: "0.9rem",
-              }}
-            >
-              {console.log({ blog })}
-              {blog?.author?.charAt(0).toUpperCase()}
-            </div>
-            <div>
-              <p style={{ fontWeight: "600", color: "#111", margin: 0 }}>
-                {blog.author}
-              </p>
-              <p style={{ color: "#6b7280", fontSize: "0.85rem", margin: 0 }}>
-                Published • {new Date(blog.publishedAt).toLocaleDateString()}
-              </p>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div
-            style={{
-              fontSize: "1.1rem",
-              lineHeight: "1.8",
-              color: "#111",
-            }}
-          >
-            <ReactMarkdown
-              components={{
-                h1: ({ children }) => (
-                  <h1
-                    style={{
-                      fontSize: "2.5rem",
-                      fontWeight: "bold",
-                      color: "#111",
-                      margin: "2.5rem 0 1.25rem 0",
-                      lineHeight: "1.2",
-                    }}
-                  >
-                    {children}
-                  </h1>
-                ),
-                h2: ({ children }) => (
-                  <h2
-                    style={{
-                      fontSize: "2rem",
-                      fontWeight: "bold",
-                      color: "#111",
-                      margin: "2rem 0 1rem 0",
-                      lineHeight: "1.3",
-                    }}
-                  >
-                    {children}
-                  </h2>
-                ),
-                h3: ({ children }) => (
-                  <h3
-                    style={{
-                      fontSize: "1.5rem",
-                      fontWeight: "bold",
-                      color: "#111",
-                      margin: "1.75rem 0 0.875rem 0",
-                    }}
-                  >
-                    {children}
-                  </h3>
-                ),
-                p: ({ children }) => (
-                  <p
-                    style={{
-                      margin: "1.25rem 0",
-                      color: "#374151",
-                      lineHeight: "1.8",
-                    }}
-                  >
-                    {children}
-                  </p>
-                ),
-                a: ({ children, href }) => (
-                  <a
-                    href={href}
-                    style={{
-                      color: "#2563eb",
-                      textDecoration: "none",
-                      fontWeight: "500",
-                    }}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {children}
-                  </a>
-                ),
-                code: ({ children }) => (
-                  <code
-                    style={{
-                      backgroundColor: "#f3f4f6",
-                      padding: "0.125rem 0.25rem",
-                      borderRadius: "0.25rem",
-                      fontSize: "0.875em",
-                      color: "#d63384",
-                    }}
-                  >
-                    {children}
-                  </code>
-                ),
-                blockquote: ({ children }) => (
-                  <blockquote
-                    style={{
-                      borderLeft: "4px solid #e5e7eb",
-                      margin: "1.5rem 0",
-                      padding: "0.5rem 1rem",
-                      backgroundColor: "#f8fafc",
-                      color: "#374151",
-                    }}
-                  >
-                    {children}
-                  </blockquote>
-                ),
-                img: ({ src, alt }) => (
+        <Grid container spacing={6}>
+          {/* Main Content Column */}
+          <Grid size={{ xs: 12, md: 8 }}>
+            <article className={styles.blogArticleSection}>
+              {/* Cover Image */}
+              {blog.coverImage && (
+                <Box
+                  sx={{
+                    height: { xs: 300, md: 450 },
+                    position: "relative",
+                    borderRadius: "var(--high-rounded)",
+                    overflow: "hidden",
+                    mb: 4,
+                    boxShadow: "var(--low-shadow)",
+                  }}
+                >
                   <Image
-                    src={src || ""}
-                    alt={alt || ""}
-                    width={800}
-                    height={400}
-                    style={{
-                      borderRadius: "0.5rem",
-                      margin: "1.5rem 0",
-                    }}
+                    src={blog.coverImage}
+                    alt={blog.title}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    priority
                   />
-                ),
-              }}
-            >
-              {blog.content}
-            </ReactMarkdown>
-          </div>
-        </article>
+                </Box>
+              )}
 
-        {/* Related Posts Sidebar */}
-        {relatedBlogs.length > 0 && (
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 300px",
-              gap: "4rem",
-              maxWidth: "100%",
-            }}
-          >
-            <div />
-            <aside
-              style={{
-                position: "sticky",
-                top: "2rem",
-                height: "fit-content",
-              }}
+              {/* Meta Info */}
+              <Stack direction="row" spacing={2} alignItems="center" mb={2}>
+                <Chip
+                  variant="outlined"
+                  color="secondary"
+                  label={blog.category}
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                />
+                <span>
+                  {new Date(blog.publishedAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+              </Stack>
+
+              <h1>{blog.title}</h1>
+
+              {/* Author Info */}
+              <Stack
+                direction="row"
+                spacing={2}
+                alignItems="center"
+                sx={{ mb: 4, pb: 4, borderBottom: "1px solid var(--grey-10)" }}
+              >
+                <Avatar
+                  sx={{
+                    background: "var(--blog-linear-gradient)",
+                    fontWeight: 700,
+                  }}
+                >
+                  {blog.author?.charAt(0).toUpperCase()}
+                </Avatar>
+                <Box>
+                  <h6>{blog.author}</h6>
+                  <span>Author</span>
+                </Box>
+              </Stack>
+
+              {/* Markdown Content */}
+              <Box>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    h2: ({ children }) => (
+                      <Typography
+                        variant="h4"
+                        sx={{
+                          color: "var(--primaryDark)",
+                          fontWeight: 700,
+                          mt: 4,
+                          mb: 2,
+                        }}
+                      >
+                        {children}
+                      </Typography>
+                    ),
+                    h3: ({ children }) => (
+                      <Typography
+                        variant="h5"
+                        sx={{
+                          color: "var(--primary)",
+                          fontWeight: 700,
+                          mt: 3,
+                          mb: 1.5,
+                        }}
+                      >
+                        {children}
+                      </Typography>
+                    ),
+                    p: ({ children }) => (
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: "var(--grey-1)",
+                          lineHeight: 1.8,
+                          mb: 2.5,
+                          fontSize: "1.1rem",
+                        }}
+                      >
+                        {children}
+                      </Typography>
+                    ),
+                    a: ({ children, href }) => (
+                      <Link
+                        href={href}
+                        style={{
+                          color: "var(--primary)",
+                          fontWeight: 600,
+                          textDecoration: "underline",
+                        }}
+                      >
+                        {children}
+                      </Link>
+                    ),
+                    blockquote: ({ children }) => (
+                      <Box
+                        sx={{
+                          borderLeft: "4px solid var(--secondary)",
+                          pl: 3,
+                          py: 1,
+                          my: 3,
+                          backgroundColor: "var(--blue-tint-13)",
+                          fontStyle: "italic",
+                          borderRadius: "0 8px 8px 0",
+                        }}
+                      >
+                        {children}
+                      </Box>
+                    ),
+                  }}
+                >
+                  {/* USE THE CLEANED CONTENT HERE */}
+                  {cleanContent}
+                </ReactMarkdown>
+              </Box>
+            </article>
+          </Grid>
+
+          {/* Sidebar Column */}
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Box
+              sx={{ position: "sticky", top: "2rem" }}
+              className={styles.blogArticleSideSection}
             >
-              <h3
-                style={{
-                  fontSize: "1.25rem",
-                  fontWeight: "bold",
-                  color: "#111",
-                  marginBottom: "1.5rem",
+              <h6>
+                <span style={{ color: "var(--secondary)" }}>●</span> Related
+                Articles
+              </h6>
+
+              <Stack spacing={2} mt={2}>
+                {relatedBlogs.length > 0 ? (
+                  relatedBlogs.map((rBlog) => (
+                    <RelatedPost key={rBlog.id} blog={rBlog} />
+                  ))
+                ) : (
+                  <p style={{ color: "var(--grey-10)", fontStyle: "italic" }}>
+                    No related posts found.
+                  </p>
+                )}
+              </Stack>
+
+              {/* Newsletter or CTA placeholder */}
+              <Box
+                sx={{
+                  mt: 4,
+                  p: 3,
+                  borderRadius: "var(--high-rounded)",
+                  background: "var(--top-to-bottom-gradient-home-hero)",
+                  border: "1px solid var(--blue-tint-12)",
                 }}
               >
-                Related Posts
-              </h3>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "1rem",
-                }}
-              >
-                {relatedBlogs.map((relatedBlog) => (
-                  <RelatedPost key={relatedBlog.id} blog={relatedBlog} />
-                ))}
-              </div>
-            </aside>
-          </div>
-        )}
+                <Stack spacing={2}>
+                  <p style={{ fontWeight: 700, color: "var(--primaryDark)" }}>
+                    Stay Updated
+                  </p>
+                  <p style={{ color: "var(--grey-10)", mb: 2 }}>
+                    Get the latest insights and legal blogs all in one place.
+                  </p>
+                  <Link
+                    href="/contact"
+                    style={{
+                      color: "var(--primary)",
+                      fontWeight: 700,
+                      textDecoration: "none",
+                    }}
+                  >
+                    Contact Us →
+                  </Link>
+                </Stack>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
       </Container>
     </section>
   );

@@ -1,0 +1,2 @@
+  export const categoriesOnPublicView = ["Legal Updates", "Practice Areas", "Client Resources", "Firm News", "Insights"];
+  export const categoriesOnAdminView = ["Legal Updates", "Practice Areas", "Client Resources", "Firm News", "Insights"];

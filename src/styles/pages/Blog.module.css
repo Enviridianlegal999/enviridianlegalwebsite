@@ -1,13 +1,94 @@
 .allBlogsSection {
   min-height: 100vh;
   background: var(--blue-tint-13);
-  padding-top: var(--container-padding);
+  padding-top: var(--container-hero-top-padding);
   padding-bottom: var(--container-padding);
+
+  h3 {
+    color: var(--grey-10);
+  }
+}
+
+.blogTitleSection {
+  p {
+    color: var(--secondary);
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  h1 {
+    color: var(--primaryDark);
+  }
+}
+
+.blogInputSection {
+  input {
+    font-size: 18px;
+    font-family: inherit;
+  }
+}
+
+.blogCard:hover {
+  transform: translateY(-4px);
+  transition: "0.3s";
+}
+
+.blogCardContent {
+  span {
+    font-size: 14px;
+  }
+
+  h4 {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 14px;
+    color: var(--grey-1);
+  }
 }
 
 .singleBlogSection {
   min-height: 100vh;
   background: var(--blue-tint-13);
-  padding-top: var(--container-padding);
+  padding-top: var(--container-hero-top-padding);
   padding-bottom: var(--container-padding);
+}
+
+.blogArticleSection {
+  h1 {
+    color: var(--primaryDark);
+  }
+
+  h6 {
+    font-size: 18px;
+    color: var(--secondaryDark);
+  }
+
+  span {
+    color: var(--grey-10);
+  }
+}
+
+.blogArticleSideSection {
+  h6 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  
+}
+
+.similarBlogCard {
+  h6 {
+    font-size: 16px;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  span {
+    font-size: 12px;
+    color: var(--grey-10);
+  }
 }

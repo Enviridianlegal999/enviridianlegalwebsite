@@ -1,178 +1,109 @@
 import Link from "next/link";
-import Image from "next/image";
+
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Chip,
+  Grid,
+  Stack,
+} from "@mui/material";
 
 import Container from "@/components/layout/Container";
 import { getAllBlogsForPublic } from "@/actions/blog";
+import { categoriesOnPublicView } from "@/constants/blogConstants";
 
 import styles from "@/styles/pages/Blog.module.css";
 
-function categoryStyle(activeCategory, currentCategory) {
-  const isActive =
-    activeCategory === currentCategory || (!activeCategory && !currentCategory);
-  return {
-    padding: "0.5rem 1.25rem",
-    border: isActive ? "2px solid #2563eb" : "2px solid transparent",
-    borderRadius: "2rem",
-    fontWeight: "500",
-    color: isActive ? "#2563eb" : "#374151",
-    backgroundColor: isActive ? "#eff6ff" : "transparent",
-    textDecoration: "none",
-    transition: "all 0.2s ease",
-  };
-}
+// --- Helper Styles using your palette ---
+const categoryButtonStyle = (isActive) => ({
+  padding: "8px 20px",
+  border: `2px solid ${isActive ? "var(--primary)" : "transparent"}`,
+  borderRadius: "var(--capsule-rounded)",
+  color: isActive ? "var(--primary)" : "var(--grey-10)",
+  backgroundColor: isActive ? "var(--blue-tint-12)" : "var(--white)",
+  textDecoration: "none",
+});
 
-function buttonStyle(disabled = false) {
-  return {
-    padding: "0.75rem 1.5rem",
-    border: "2px solid #e5e7eb",
-    borderRadius: "0.5rem",
-    backgroundColor: "white",
-    color: disabled ? "#9ca3af" : "#374151",
-    textDecoration: "none",
-    fontWeight: "500",
-    opacity: disabled ? 0.5 : 1,
-    cursor: disabled ? "not-allowed" : "pointer",
-  };
-}
+const paginationButtonStyle = (disabled) => ({
+  padding: "8px 20px",
+  borderRadius: "var(--high-rounded)",
+  backgroundColor: disabled ? "var(--bg)" : "var(--primary)",
+  color: disabled ? "var(--grey-10)" : "var(--white)",
+  textDecoration: "none",
+  pointerEvents: disabled ? "none" : "auto",
+  border: "none",
+  cursor: "pointer",
+});
 
 function BlogCard({ blog }) {
   return (
-    <Link
-      href={`/blog/${blog.slug}`}
-      style={{
-        textDecoration: "none",
-        color: "inherit",
-        display: "block",
-        height: "100%",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "white",
-          borderRadius: "1rem",
-          overflow: "hidden",
-          boxShadow:
-            "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          border: "1px solid #e5e7eb",
-        }}
-      >
-        {/* Cover Image */}
-        {blog.coverImage ? (
-          <div
-            style={{
-              height: "200px",
-              overflow: "hidden",
-              position: "relative",
-              width: "100%",
-            }}
-          >
-            <Image
-              src={blog.coverImage}
-              alt={blog.title}
-              fill
-              style={{ objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          </div>
-        ) : (
-          <div
-            style={{
-              height: "200px",
-              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-            }}
-          >
-            <span style={{ fontSize: "3rem" }}>📝</span>
-          </div>
-        )}
-
-        {/* Content */}
-        <div
-          style={{
-            padding: "1.5rem",
-            flex: 1,
+    <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
+      <Link href={`/blog/${blog.slug}`} style={{ textDecoration: "none" }}>
+        <Card
+          sx={{
+            height: "100%",
             display: "flex",
             flexDirection: "column",
+            borderRadius: "var(--high-rounded)",
+            boxShadow: "var(--low-shadow)",
           }}
+          className={styles.blogCard}
+          elevation={0}
         >
-          <span
-            style={{
-              padding: "0.25rem 0.75rem",
-              backgroundColor: "#dbeafe",
-              color: "#1e40af",
-              fontSize: "0.75rem",
-              fontWeight: "600",
-              borderRadius: "9999px",
-              width: "fit-content",
-              marginBottom: "1rem",
-            }}
+          {blog.coverImage ? (
+            <CardMedia
+              sx={{ height: 220 }}
+              image={blog.coverImage}
+              title={blog.title}
+            />
+          ) : (
+            <Box
+              sx={{
+                height: 220,
+                background: "var(--blog-linear-gradient)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "64px",
+              }}
+            >
+              📝
+            </Box>
+          )}
+          <CardContent
+            sx={{ flexGrow: 1, p: 3 }}
+            className={styles.blogCardContent}
           >
-            {blog.category}
-          </span>
-
-          <h2
-            style={{
-              fontSize: "1.5rem",
-              fontWeight: "bold",
-              color: "#111",
-              marginBottom: "0.75rem",
-              lineHeight: "1.3",
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
-          >
-            {blog.title}
-          </h2>
-
-          <p
-            style={{
-              color: "#6b7280",
-              fontSize: "0.95rem",
-              lineHeight: "1.6",
-              marginBottom: "1.5rem",
-              flex: 1,
-              display: "-webkit-box",
-              WebkitLineClamp: 3,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
-          >
-            {blog.excerpt}
-          </p>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              fontSize: "0.875rem",
-              color: "#6b7280",
-            }}
-          >
-            <span style={{ fontWeight: "500" }}>{blog.author}</span>
-            {blog.publishedAt && (
-              <>
-                <span style={{ margin: "0 0.75rem", color: "#9ca3af" }}>•</span>
-                <span>
-                  {new Date(blog.publishedAt).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
+            <Stack spacing={2}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Chip
+                  variant="outlined"
+                  color="secondary"
+                  label={blog.category || "General"}
+                  size="small"
+                  sx={{
+                    fontWeight: "500",
+                  }}
+                />
+                <span style={{ color: "var(--grey-10)" }}>
+                  {new Date(blog.publishedAt).toLocaleDateString()}
                 </span>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </Link>
+              </Stack>
+
+              <h4>{blog.title}</h4>
+
+              <p>{blog.excerpt}</p>
+            </Stack>
+          </CardContent>
+        </Card>
+      </Link>
+    </Grid>
   );
 }
 
@@ -194,226 +125,99 @@ export default async function BlogPage({ searchParams }) {
     <section id={"view-all-blogs"} className={styles.allBlogsSection}>
       <Container>
         {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-          <h1
-            style={{
-              fontSize: "3rem",
-              fontWeight: "bold",
-              color: "#111",
-              marginBottom: "1rem",
-              letterSpacing: "-0.025em",
-            }}
-          >
-            Blog
-          </h1>
-          <p
-            style={{
-              fontSize: "1.25rem",
-              color: "#6b7280",
-              maxWidth: "600px",
-              margin: "0 auto",
-              lineHeight: "1.6",
-            }}
-          >
-            {search
-              ? `Search results for "${search}" (${total} found)`
-              : "Latest articles and insights"}
-          </p>
-        </div>
+        <Box textAlign="center" mb={5} className={styles.blogTitleSection}>
+          <p>Knowledge Hub</p>
+          <h1>Insights & Blogs</h1>
+        </Box>
 
-        {/* 🔥 WORKING SEARCH FORM + CATEGORIES */}
-        <div style={{ marginBottom: "3rem" }}>
-          {/* 🔥 Search Form - WORKS ON ENTER */}
-          <div
-            style={{
-              maxWidth: "500px",
-              margin: "0 auto 2rem auto",
-            }}
+        {/* Search & Filters */}
+        <Stack spacing={4} alignItems="center" mb={5}>
+          {/* Search Bar */}
+          <Box
+            component="form"
+            action="/blog"
+            sx={{ width: "100%", maxWidth: 500 }}
+            className={styles.blogInputSection}
           >
-            <form
-              action={`/blog${category ? `?category=${category}` : ""}`}
-              style={{ display: "contents" }}
-            >
-              <div style={{ position: "relative" }}>
-                <input
-                  type="text"
-                  name="q"
-                  placeholder="Search blogs..."
-                  defaultValue={search || ""}
-                  style={{
-                    width: "100%",
-                    padding: "0.875rem 1rem 0.875rem 3rem",
-                    border: search ? "2px solid #2563eb" : "2px solid #e5e7eb",
-                    borderRadius: "2rem",
-                    fontSize: "1rem",
-                    backgroundColor: "white",
-                    transition: "all 0.2s ease",
-                    outline: "none",
-                    boxShadow: search
-                      ? "0 0 0 3px rgba(37, 99, 235, 0.1)"
-                      : "none",
-                  }}
-                />
-                <svg
-                  style={{
-                    position: "absolute",
-                    left: "1rem",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    width: "20px",
-                    height: "20px",
-                    color: "#6b7280",
-                  }}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.35-4.35"></path>
-                </svg>
-              </div>
-            </form>
-          </div>
+            <input
+              type="text"
+              name="q"
+              placeholder="Search articles..."
+              defaultValue={search || ""}
+              style={{
+                width: "100%",
+                padding: "16px 40px",
+                borderRadius: "var(--capsule-rounded)",
+                border: `2px solid ${search ? "var(--primary)" : "var(--grey-10)"}`,
+                outline: "none",
+              }}
+            />
+          </Box>
 
-          {/* Filter Categories */}
-          <div
-            style={{
-              display: "flex",
-              gap: "1rem",
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
+          {/* Category Chips */}
+          <Stack
+            direction="row"
+            spacing={1}
+            flexWrap="wrap"
+            justifyContent="center"
+            useFlexGap
           >
-            <Link href="/blog" style={categoryStyle(null, category)}>
-              All
+            <Link href="/blog" style={categoryButtonStyle(!category)}>
+              All Posts
             </Link>
-            <Link
-              href="/blog?category=Technology"
-              style={categoryStyle("Technology", category)}
-            >
-              Technology
-            </Link>
-            <Link
-              href="/blog?category=Lifestyle"
-              style={categoryStyle("Lifestyle", category)}
-            >
-              Lifestyle
-            </Link>
-            <Link
-              href="/blog?category=Business"
-              style={categoryStyle("Business", category)}
-            >
-              Business
-            </Link>
-            <Link
-              href="/blog?category=Travel"
-              style={categoryStyle("Travel", category)}
-            >
-              Travel
-            </Link>
-            <Link
-              href="/blog?category=Food"
-              style={categoryStyle("Food", category)}
-            >
-              Food
-            </Link>
-          </div>
-        </div>
+            {categoriesOnPublicView.map((cat) => (
+              <Link
+                key={cat}
+                href={`/blog?category=${cat}`}
+                style={categoryButtonStyle(category === cat)}
+              >
+                {cat}
+              </Link>
+            ))}
+          </Stack>
+        </Stack>
 
         {/* Blog Grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
-            gap: "2rem",
-            marginBottom: "3rem",
-          }}
-        >
+        <Grid container spacing={4}>
           {blogs.map((blog) => (
             <BlogCard key={blog.id} blog={blog} />
           ))}
-        </div>
+        </Grid>
 
         {/* Pagination */}
         {blogs.length > 0 && (
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "1rem",
-              flexWrap: "wrap",
-            }}
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+            mt={8}
           >
-            {page > 1 && (
-              <Link
-                href={`/blog?page=${page - 1}${
-                  search ? `&q=${encodeURIComponent(search)}` : ""
-                }${category ? `&category=${category}` : ""}`}
-                style={buttonStyle()}
-              >
-                ← Previous
-              </Link>
-            )}
-            <span
-              style={{
-                padding: "0.75rem 1.5rem",
-                color: "#374151",
-                fontWeight: "500",
-                border: "2px solid #e5e7eb",
-                borderRadius: "0.5rem",
-                backgroundColor: "#f9fafb",
-              }}
+            <Link
+              href={`/blog?page=${page - 1}${search ? `&q=${search}` : ""}${category ? `&category=${category}` : ""}`}
+              style={paginationButtonStyle(page <= 1)}
             >
-              Page {page} of {Math.ceil(total / limit)}
+              Previous
+            </Link>
+
+            <span style={{ color: "var(--primaryDark)" }}>
+              {page} / {Math.ceil(total / limit)}
             </span>
-            {hasMore && (
-              <Link
-                href={`/blog?page=${page + 1}${
-                  search ? `&q=${encodeURIComponent(search)}` : ""
-                }${category ? `&category=${category}` : ""}`}
-                style={buttonStyle()}
-              >
-                Next →
-              </Link>
-            )}
-          </div>
+
+            <Link
+              href={`/blog?page=${page + 1}${search ? `&q=${search}` : ""}${category ? `&category=${category}` : ""}`}
+              style={paginationButtonStyle(!hasMore)}
+            >
+              Next
+            </Link>
+          </Stack>
         )}
 
         {/* Empty State */}
         {blogs.length === 0 && (
-          <div
-            style={{
-              textAlign: "center",
-              padding: "4rem 2rem",
-              color: "#6b7280",
-            }}
-          >
-            <div
-              style={{
-                fontSize: "4rem",
-                marginBottom: "1rem",
-                opacity: 0.5,
-              }}
-            >
-              {search ? "🔍" : "📝"}
-            </div>
-            <h2
-              style={{
-                fontSize: "1.5rem",
-                marginBottom: "1rem",
-                fontWeight: "600",
-              }}
-            >
-              {search
-                ? `No results found for "${search}"`
-                : "No blog posts yet"}
-            </h2>
-            <p style={{ fontSize: "1.1rem" }}>
-              {search
-                ? "Try different keywords or check back later for new content!"
-                : "Check back later for new content!"}
-            </p>
-          </div>
+          <Box textAlign="center" py={10}>
+            <h3>No blogs found for "{search || category}"</h3>
+          </Box>
         )}
       </Container>
     </section>

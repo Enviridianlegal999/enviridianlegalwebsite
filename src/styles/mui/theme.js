@@ -19,6 +19,22 @@ const theme = createTheme({
     },
   },
   components: {
+    // FIX: Prevent page shifting globally by disabling scroll lock
+    MuiModal: {
+      defaultProps: {
+        disableScrollLock: true,
+      },
+    },
+    MuiPopover: {
+      defaultProps: {
+        disableScrollLock: true,
+      },
+    },
+    MuiDialog: {
+      defaultProps: {
+        disableScrollLock: true,
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: () => ({

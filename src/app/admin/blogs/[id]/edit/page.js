@@ -2,11 +2,41 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
+import Link from "next/link";
 import MDEditor from "@uiw/react-md-editor";
 
+// MUI Components
+import {
+  Box,
+  Stack,
+  Typography,
+  Button,
+  TextField,
+  MenuItem,
+  Breadcrumbs,
+  Paper,
+  IconButton,
+  CircularProgress,
+  Alert,
+  useMediaQuery,
+  useTheme,
+  Divider,
+} from "@mui/material";
+
+// MUI Icons
+import {
+  DashboardRounded,
+  CloudUploadRounded,
+  CloseRounded,
+  SaveRounded,
+  ArrowBackRounded,
+} from "@mui/icons-material";
+
 import Container from "@/components/layout/Container";
+import { categoriesOnAdminView } from "@/constants/blogConstants";
 import { useAuth } from "@/contexts/AuthContext";
 import { getBlogById, updateBlogAction } from "@/actions/blog";
+import { stripFrontmatter } from "@/utils/markdownUtils";
 
 import styles from "@/styles/pages/Dashboard.module.css";
 
@@ -14,45 +44,51 @@ export default function EditBlog() {
   const { id } = useParams();
   const { isLoggedIn, loading } = useAuth();
   const router = useRouter();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [formData, setFormData] = useState({
     title: "",
-    category: "Technology",
+    category: "Legal Updates",
     author: "",
     excerpt: "",
     content: "",
     status: "draft",
   });
+
   const [coverImage, setCoverImage] = useState(null);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [loadingBlog, setLoadingBlog] = useState(true);
   const [result, setResult] = useState({ success: false, message: "" });
   const [imagePreview, setImagePreview] = useState("");
-  const [originalCoverImage, setOriginalCoverImage] = useState("");
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!loading && !isLoggedIn) {
       router.push("/admin/login");
       return;
     }
     if (id) {
       fetchBlog();
     }
-  }, [id, isLoggedIn, router]);
+  }, [id, isLoggedIn, loading, router]);
 
   async function fetchBlog() {
     try {
       setLoadingBlog(true);
       const blog = await getBlogById(id);
+
+      // 1. Prepare the clean content by stripping frontmatter
+      const cleanContent = stripFrontmatter(blog.content);
+
       if (blog) {
         setFormData({
           title: blog.title,
           category: blog.category,
           author: blog.author,
           excerpt: blog.excerpt || "",
-          content: blog.content || "",
+          content: cleanContent || "",
           status: blog.status || "draft",
         });
-        setOriginalCoverImage(blog.coverImage || "");
         setImagePreview(blog.coverImage || "");
       } else {
         router.push("/admin/blogs");
@@ -74,8 +110,7 @@ export default function EditBlog() {
     const file = e.target.files[0];
     if (file) {
       setCoverImage(file);
-      const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl);
+      setImagePreview(URL.createObjectURL(file));
     }
   };
 
@@ -85,378 +120,302 @@ export default function EditBlog() {
     setResult({ success: false, message: "" });
 
     const data = new FormData();
-    data.append("title", formData.title);
-    data.append("category", formData.category);
-    data.append("author", formData.author);
-    data.append("excerpt", formData.excerpt);
-    data.append("content", formData.content);
-    data.append("status", formData.status);
-    if (coverImage) {
-      data.append("coverImage", coverImage);
+    Object.keys(formData).forEach((key) => data.append(key, formData[key]));
+    if (coverImage) data.append("coverImage", coverImage);
+
+    try {
+      const response = await updateBlogAction({}, data, id);
+      setResult(response);
+      if (response.success) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => router.push("/admin/blogs"), 2000);
+      }
+    } catch (error) {
+      setResult({ success: false, message: "An unexpected error occurred." });
+    } finally {
+      setLoadingSubmit(false);
     }
-
-    const response = await updateBlogAction({}, data, id);
-    setResult(response);
-
-    if (response.success) {
-      setTimeout(() => {
-        router.push("/admin/blogs");
-      }, 1500);
-    }
-
-    setLoadingSubmit(false);
   };
 
   if (loading || loadingBlog || !isLoggedIn) {
     return (
-      <div style={{ padding: "2rem", textAlign: "center" }}>Loading...</div>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="60vh"
+      >
+        <CircularProgress />
+      </Box>
     );
   }
 
   return (
-    <section id={"manage-edit-blog"} className={styles.editBlogSection}>
+    <section className={styles.blogsSection}>
       <Container>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: "2rem",
-          }}
-        >
-          <h1 style={{ fontSize: "2rem", fontWeight: "bold", color: "#111" }}>
-            Edit Blog
-          </h1>
-          <button
-            onClick={() => router.push("/admin/blogs")}
-            style={{
-              padding: "0.75rem 1.5rem",
-              border: "1px solid #d1d5db",
-              borderRadius: "0.5rem",
-              backgroundColor: "white",
-              color: "#374151",
-              cursor: "pointer",
-            }}
+        <Box py={4}>
+          {/* Breadcrumbs & Navigation */}
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            mb={4}
           >
-            ← Back to Blogs
-          </button>
-        </div>
+            <Stack spacing={1}>
+              <Breadcrumbs aria-label="breadcrumb">
+                <Link
+                  href="/admin/dashboard"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    color: "var(--grey-10)",
+                    textDecoration: "none",
+                  }}
+                >
+                  <DashboardRounded sx={{ mr: 0.5 }} fontSize="inherit" />
+                  Dashboard
+                </Link>
+                <Link
+                  href="/admin/blogs"
+                  style={{ color: "var(--grey-10)", textDecoration: "none" }}
+                >
+                  Blogs
+                </Link>
+                <Typography color="var(--primaryDark)" fontWeight={700}>
+                  Edit
+                </Typography>
+              </Breadcrumbs>
+              <Typography variant="h4" fontWeight={900}>
+                Edit Blog Post
+              </Typography>
+            </Stack>
 
-        {result.message && (
-          <div
-            style={{
-              padding: "1rem",
-              borderRadius: "0.5rem",
-              marginBottom: "1.5rem",
-              ...(result.success
-                ? {
-                    backgroundColor: "#d1fae5",
-                    border: "1px solid #10b981",
-                    color: "#065f46",
+            <Button
+              variant="outlined"
+              startIcon={<ArrowBackRounded />}
+              component={Link}
+              href="/admin/blogs"
+              sx={{
+                color: "var(--grey-10)",
+                borderColor: "var(--grey-10)",
+                "&:hover": {
+                  borderColor: "var(--primaryDark)",
+                  color: "var(--primaryDark)",
+                },
+              }}
+            >
+              {!isMobile && "Back to List"}
+            </Button>
+          </Stack>
+
+          {result.message && (
+            <Alert
+              severity={result.success ? "success" : "error"}
+              sx={{ mb: 3 }}
+            >
+              {result.message}
+            </Alert>
+          )}
+
+          <form onSubmit={handleSubmit}>
+            <Stack spacing={4}>
+              <Stack direction={{ xs: "column", md: "row" }} spacing={3}>
+                {/* Main Fields */}
+                <Stack spacing={3} flex={1}>
+                  <TextField
+                    fullWidth
+                    label="Blog Title"
+                    name="title"
+                    required
+                    value={formData.title}
+                    onChange={handleChange}
+                    variant="outlined"
+                  />
+
+                  <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                    <TextField
+                      select
+                      fullWidth
+                      label="Category"
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                    >
+                      {categoriesOnAdminView.map((cat) => (
+                        <MenuItem key={cat} value={cat}>
+                          {cat}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                    <TextField
+                      fullWidth
+                      label="Author Name"
+                      name="author"
+                      required
+                      value={formData.author}
+                      onChange={handleChange}
+                    />
+                  </Stack>
+
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={3}
+                    label="Excerpt"
+                    name="excerpt"
+                    value={formData.excerpt}
+                    onChange={handleChange}
+                    helperText={`${formData.excerpt.length}/160 characters`}
+                    inputProps={{ maxLength: 160 }}
+                  />
+                </Stack>
+
+                {/* Sidebar: Image Preview/Upload */}
+                <Paper
+                  sx={{
+                    width: { xs: "100%", md: 350 },
+                    p: 2,
+                    borderRadius: "var(--high-rounded)",
+                    border: "1px solid var(--bg)",
+                    bgcolor: "var(--bg)",
+                  }}
+                  elevation={0}
+                >
+                  <Typography variant="subtitle2" fontWeight={700} mb={2}>
+                    Featured Image
+                  </Typography>
+                  {imagePreview ? (
+                    <Box position="relative">
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        style={{
+                          width: "100%",
+                          borderRadius: "8px",
+                          display: "block",
+                          aspectRatio: "16/9",
+                          objectFit: "cover",
+                        }}
+                      />
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setCoverImage(null);
+                          setImagePreview("");
+                        }}
+                        sx={{
+                          position: "absolute",
+                          top: 8,
+                          right: 8,
+                          bgcolor: "white",
+                          boxShadow: 2,
+                          "&:hover": { bgcolor: "#f5f5f5" },
+                        }}
+                      >
+                        <CloseRounded fontSize="small" color="error" />
+                      </IconButton>
+                    </Box>
+                  ) : (
+                    <Button
+                      component="label"
+                      fullWidth
+                      variant="outlined"
+                      startIcon={<CloudUploadRounded />}
+                      sx={{
+                        py: 6,
+                        borderStyle: "dashed",
+                        borderColor: "var(--grey-10)",
+                        color: "var(--grey-10)",
+                        borderRadius: "var(--high-rounded)",
+                        bgcolor: "var(--white)",
+                      }}
+                    >
+                      Update Cover
+                      <input
+                        type="file"
+                        hidden
+                        accept="image/*"
+                        onChange={handleImageChange}
+                      />
+                    </Button>
+                  )}
+                </Paper>
+              </Stack>
+
+              {/* Editor */}
+              <Box data-color-mode="light">
+                <Typography variant="subtitle2" fontWeight={700} mb={1}>
+                  Post Content *
+                </Typography>
+                <MDEditor
+                  value={formData.content}
+                  onChange={(val) =>
+                    setFormData((p) => ({ ...p, content: val || "" }))
                   }
-                : {
-                    backgroundColor: "#fef2f2",
-                    border: "1px solid #ef4444",
-                    color: "#dc2626",
-                  }),
-            }}
-          >
-            {result.message}
-          </div>
-        )}
-
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
-        >
-          {/* Same form fields as Create - Title, Category, Author, Excerpt */}
-          <div>
-            <label
-              style={{
-                display: "block",
-                fontWeight: "600",
-                marginBottom: "0.5rem",
-                color: "#374151",
-              }}
-            >
-              Title *
-            </label>
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              onChange={handleChange}
-              required
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                border: "1px solid #d1d5db",
-                borderRadius: "0.375rem",
-                fontSize: "1rem",
-              }}
-              disabled={loadingSubmit}
-            />
-          </div>
-
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            <div style={{ flex: 1, minWidth: "200px" }}>
-              <label
-                style={{
-                  display: "block",
-                  fontWeight: "600",
-                  marginBottom: "0.5rem",
-                  color: "#374151",
-                }}
-              >
-                Category *
-              </label>
-              <select
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                required
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "0.375rem",
-                  fontSize: "1rem",
-                  backgroundColor: "white",
-                }}
-                disabled={loadingSubmit}
-              >
-                <option value="Technology">Technology</option>
-                <option value="Lifestyle">Lifestyle</option>
-                <option value="Business">Business</option>
-                <option value="Travel">Travel</option>
-                <option value="Food">Food</option>
-              </select>
-            </div>
-
-            <div style={{ flex: 1, minWidth: "200px" }}>
-              <label
-                style={{
-                  display: "block",
-                  fontWeight: "600",
-                  marginBottom: "0.5rem",
-                  color: "#374151",
-                }}
-              >
-                Author *
-              </label>
-              <input
-                type="text"
-                name="author"
-                value={formData.author}
-                onChange={handleChange}
-                required
-                style={{
-                  width: "100%",
-                  padding: "0.75rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "0.375rem",
-                  fontSize: "1rem",
-                }}
-                disabled={loadingSubmit}
-              />
-            </div>
-          </div>
-
-          <div>
-            <label
-              style={{
-                display: "block",
-                fontWeight: "600",
-                marginBottom: "0.5rem",
-                color: "#374151",
-              }}
-            >
-              Excerpt (Optional)
-            </label>
-            <textarea
-              name="excerpt"
-              value={formData.excerpt}
-              onChange={handleChange}
-              rows="3"
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                border: "1px solid #d1d5db",
-                borderRadius: "0.375rem",
-                fontSize: "1rem",
-                resize: "vertical",
-              }}
-              disabled={loadingSubmit}
-            />
-          </div>
-
-          {/* Cover Image - Shows current + new upload option */}
-          <div>
-            <label
-              style={{
-                display: "block",
-                fontWeight: "600",
-                marginBottom: "0.5rem",
-                color: "#374151",
-              }}
-            >
-              Cover Image
-            </label>
-            {originalCoverImage && !imagePreview && (
-              <div style={{ marginBottom: "1rem" }}>
-                <img
-                  src={originalCoverImage}
-                  alt="Current cover"
-                  style={{
-                    maxWidth: "300px",
-                    maxHeight: "200px",
-                    objectFit: "cover",
-                    borderRadius: "0.5rem",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-                  }}
+                  height={500}
                 />
-                <p
-                  style={{
-                    fontSize: "0.875rem",
-                    color: "#6b7280",
-                    marginTop: "0.5rem",
+              </Box>
+
+              <Divider sx={{ my: 2 }} />
+
+              {/* Actions Section */}
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                justifyContent="space-between"
+                alignItems="center"
+                spacing={2}
+                pb={8}
+              >
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <Typography fontWeight={600}>Status:</Typography>
+                  <TextField
+                    select
+                    size="small"
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    sx={{ width: 150 }}
+                  >
+                    <MenuItem value="draft">Draft</MenuItem>
+                    <MenuItem value="published">Published</MenuItem>
+                  </TextField>
+                </Stack>
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="large"
+                  disabled={
+                    loadingSubmit || !formData.title || !formData.content
+                  }
+                  startIcon={
+                    loadingSubmit ? (
+                      <CircularProgress size={20} color="inherit" />
+                    ) : (
+                      <SaveRounded />
+                    )
+                  }
+                  sx={{
+                    bgcolor:
+                      formData.status === "published"
+                        ? "#10b981"
+                        : "var(--primary)",
+                    "&:hover": {
+                      bgcolor:
+                        formData.status === "published"
+                          ? "#059669"
+                          : "var(--primaryDark)",
+                    },
+                    px: 6,
+                    borderRadius: "var(--high-rounded)",
                   }}
                 >
-                  Current cover image
-                </p>
-              </div>
-            )}
-            <input
-              type="file"
-              name="coverImage"
-              accept="image/*"
-              onChange={handleImageChange}
-              style={{
-                padding: "0.75rem",
-                border: "2px dashed #d1d5db",
-                borderRadius: "0.5rem",
-                backgroundColor: "#f9fafb",
-              }}
-              disabled={loadingSubmit}
-            />
-            {imagePreview && (
-              <div style={{ marginTop: "1rem" }}>
-                <img
-                  src={imagePreview}
-                  alt="New preview"
-                  style={{
-                    maxWidth: "300px",
-                    maxHeight: "200px",
-                    objectFit: "cover",
-                    borderRadius: "0.5rem",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
-                  }}
-                />
-                <p
-                  style={{
-                    fontSize: "0.875rem",
-                    color: "#6b7280",
-                    marginTop: "0.5rem",
-                  }}
-                >
-                  New cover image preview
-                </p>
-              </div>
-            )}
-          </div>
-
-          {/* Markdown Editor - Prefilled with existing content */}
-          <div>
-            <label
-              style={{
-                display: "block",
-                fontWeight: "600",
-                marginBottom: "1rem",
-                color: "#374151",
-              }}
-            >
-              Content *
-            </label>
-            <div
-              style={{
-                border: "1px solid #e5e7eb",
-                borderRadius: "0.5rem",
-                height: "500px",
-                overflow: "hidden",
-              }}
-              data-color-mode="light"
-            >
-              <MDEditor
-                value={formData.content}
-                onChange={(value) =>
-                  setFormData((prev) => ({ ...prev, content: value || "" }))
-                }
-                height={500}
-                disabled={loadingSubmit}
-              />
-            </div>
-          </div>
-
-          {/* Status & Submit */}
-          <div
-            style={{
-              display: "flex",
-              gap: "1rem",
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            <div>
-              <label
-                style={{
-                  fontWeight: "600",
-                  marginRight: "0.5rem",
-                  color: "#374151",
-                }}
-              >
-                Status:
-              </label>
-              <select
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                style={{
-                  padding: "0.5rem",
-                  border: "1px solid #d1d5db",
-                  borderRadius: "0.375rem",
-                  backgroundColor: "white",
-                }}
-                disabled={loadingSubmit}
-              >
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-              </select>
-            </div>
-
-            <button
-              type="submit"
-              disabled={
-                loadingSubmit ||
-                !formData.title ||
-                !formData.author ||
-                !formData.content
-              }
-              style={{
-                padding: "0.75rem 2rem",
-                backgroundColor: "#10b981",
-                color: "white",
-                border: "none",
-                borderRadius: "0.5rem",
-                fontSize: "1rem",
-                fontWeight: "600",
-                cursor: loadingSubmit ? "not-allowed" : "pointer",
-                opacity: loadingSubmit ? 0.7 : 1,
-              }}
-            >
-              {loadingSubmit ? "Updating..." : "Update Blog"}
-            </button>
-          </div>
-        </form>
+                  {loadingSubmit ? "Saving..." : "Update Post"}
+                </Button>
+              </Stack>
+            </Stack>
+          </form>
+        </Box>
       </Container>
     </section>
   );

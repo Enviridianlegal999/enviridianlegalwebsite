@@ -17,23 +17,42 @@ cloudinary.config({
 export async function getAllBlogs({
   page = 1,
   limit = 10,
-  status = "published",
+  status = null, // Change: Default to null to see ALL blogs (drafts + published)
+  category = null, // Change: Added category filter support
+  search = null, // Change: Added search support for the Admin dashboard
 }) {
   await dbConnect();
   const skip = (page - 1) * limit;
 
+  // 1. Build the Query Object
+  const query = {};
+
+  // If a specific status is passed (e.g. "draft"), use it. Otherwise, get all.
+  if (status) query.status = status;
+  if (category) query.category = category;
+
+  // 2. Admin Search Logic (Title, Excerpt, Content)
+  if (search) {
+    query.$or = [
+      { title: { $regex: search, $options: "i" } },
+      { excerpt: { $regex: search, $options: "i" } },
+      { content: { $regex: search, $options: "i" } },
+    ];
+  }
+
+  // 3. Execution
   const [blogs, total] = await Promise.all([
-    Blog.find({ status })
-      .sort({ publishedAt: -1, createdAt: -1 })
+    Blog.find(query)
+      .sort({ createdAt: -1 }) // Admin usually wants newest created first
       .skip(skip)
       .limit(limit)
-      .lean() // ✅ Converts to plain objects
-      .select("-__v") // Remove Mongoose version key
+      .lean()
+      .select("-__v")
       .exec(),
-    Blog.countDocuments({ status }),
+    Blog.countDocuments(query),
   ]);
 
-  // 🔥 NUCLEAR CLEAN: Delete _id, recreate everything
+  // 4. Clean Data for Client Components
   const cleanBlogs = blogs.map((blog) => {
     const { _id, createdAt, updatedAt, publishedAt, ...rest } = blog;
 
@@ -194,7 +213,7 @@ export async function createBlogAction(prevState, formData) {
             (error, result) => {
               if (error) reject(error);
               else resolve(result);
-            }
+            },
           )
           .end(buffer);
       });
@@ -290,7 +309,7 @@ export async function updateBlogAction(prevState, formData, id) {
             (error, result) => {
               if (error) reject(error);
               else resolve(result);
-            }
+            },
           )
           .end(buffer);
       });

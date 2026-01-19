@@ -15,7 +15,16 @@ export default function LoginPage() {
           justifyContent={"center"}
           height={"80vh"}
         >
-          <Stack minWidth={400} spacing={4}>
+          <Stack
+            minWidth={400}
+            spacing={4}
+            sx={{
+              background: "var(--white)",
+              padding: 4,
+              borderRadius: "var(--high-rounded)",
+              boxShadow: "var(--low-shadow)",
+            }}
+          >
             <h4>Admin Login</h4>
             <AdminLoginRegistration />
           </Stack>
