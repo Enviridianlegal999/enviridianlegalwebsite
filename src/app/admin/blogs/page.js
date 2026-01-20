@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 // MUI Components
 import {
@@ -47,7 +48,7 @@ import { deleteBlogAction, getAllBlogs } from "@/actions/blog";
 import styles from "@/styles/pages/Dashboard.module.css";
 
 export default function BlogsList() {
-  const { isLoggedIn, loading } = useAuth();
+  const { isLoggedIn, user, loading } = useAuth();
   const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -96,14 +97,24 @@ export default function BlogsList() {
   }, [searchTerm, page, fetchBlogs]);
 
   const handleDelete = async (blogId) => {
+    console.log({ user });
+
+    if (user?.role !== "superadmin") {
+      // alert("Unauthorized: Only Super Admins can delete blogs.");
+      toast.error("Unauthorized: Only Super Admins can delete blogs.");
+      return;
+    }
+
     if (!confirm("Are you sure? This action is permanent.")) return;
     try {
       setDeletingBlogId(blogId);
       const result = await deleteBlogAction(blogId);
       if (result.success) fetchBlogs();
-      else alert(result.message);
+      // else alert(result.message);
+      else toast.success(result.message);
     } catch (err) {
-      alert("Error deleting blog");
+      // alert("Error deleting blog");
+      toast.error("Error deleting blog");
     } finally {
       setDeletingBlogId(null);
     }

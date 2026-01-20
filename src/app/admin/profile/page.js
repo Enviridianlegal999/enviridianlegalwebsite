@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 // MUI Components
 import {
@@ -100,17 +101,21 @@ export default function AdminProfile() {
 
   const handleResetPassword = async (id, email) => {
     const newPass = prompt(`Enter new password for ${email}:`);
-    if (!newPass || newPass.length < 6) return alert("Password too short.");
+    // if (!newPass || newPass.length < 6) return alert("Password too short.");
+    if (!newPass || newPass.length < 6) return toast.error("Password too short.");
     const res = await updateAdminPassword(id, newPass);
-    if (res.success) alert("Password updated.");
-    else alert(res.error);
+    // if (res.success) alert("Password updated.");
+    if (res.success) toast.success("Password updated.");
+    // else alert(res.error);
+    else toast.error(res.error);
   };
 
   const handleDelete = async (id) => {
     if (!confirm("Delete this admin account permanently?")) return;
     const res = await deleteAdminAccount(id);
     if (res.success) fetchAdmins();
-    else alert(res.error);
+    // else alert(res.error);
+    else toast.error(res.error);
   };
 
   if (loading || !isLoggedIn) return null;

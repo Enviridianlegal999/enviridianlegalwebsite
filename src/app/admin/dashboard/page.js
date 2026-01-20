@@ -12,6 +12,8 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Chip,
+  Avatar,
 } from "@mui/material";
 import {
   ArticleRounded,
@@ -19,6 +21,7 @@ import {
   LogoutRounded,
   ArrowForwardRounded,
   ConnectWithoutContactRounded,
+  AccountCircleRounded,
 } from "@mui/icons-material";
 
 import Container from "@/components/layout/Container";
@@ -26,7 +29,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import styles from "@/styles/pages/Dashboard.module.css";
 
 export default function Dashboard() {
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, user, logout } = useAuth();
   const router = useRouter();
   const [isChecking, setIsChecking] = useState(true);
 
@@ -130,7 +133,32 @@ export default function Dashboard() {
           py={5}
         >
           {/* Header Section */}
-          <Box sx={{ textAlign: "center", mb: 6 }}>
+          <Box sx={{ textAlign: "center", mb: 6, mt: 2 }}>
+            {/* User Identity Display */}
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems="center"
+              justifyContent="center"
+              sx={{ mb: 2 }}
+            >
+              <Chip
+                avatar={
+                  <Avatar sx={{ bgcolor: "var(--primaryDark)" }}>
+                    <AccountCircleRounded />
+                  </Avatar>
+                }
+                label={user?.email || "Admin User"}
+                variant="outlined"
+                sx={{ fontWeight: 600 }}
+              />
+              <Chip
+                label={user?.role?.toUpperCase() || "ADMIN"}
+                color={user?.role === "superadmin" ? "secondary" : "default"}
+                size="small"
+                sx={{ fontWeight: 800, fontSize: "0.7rem" }}
+              />
+            </Stack>
             <Typography
               variant="h3"
               sx={{ fontWeight: 900, color: "var(--primaryDark)", mb: 1 }}
