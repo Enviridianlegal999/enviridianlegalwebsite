@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { toast } from "react-hot-toast";
+
 import {
   Button,
   DialogActions,
@@ -80,19 +82,22 @@ const GetFreeConsultationRegistration = ({ themeColor, handleClose }) => {
 
       // Check for a success flag from the server response
       if (res.success) {
-        alert(res.message);
+        // alert(res.message);
+        toast.success(res.message);
         // Reset the form and clear errors upon success
         event.target.reset();
         // Close the popup only after a successful submission
         handleClose();
       } else {
         // Handle server-side errors
-        alert(res.message || "Registration failed! Please try again.");
+        // alert(res.message || "Registration failed! Please try again.");
+        toast.error(res.message || "Registration failed! Please try again.");
       }
     } catch (error) {
       console.error("Submission error:", error);
       // Alert a generic message for unexpected issues
-      alert("An unexpected error occurred. Please try again later.");
+      // alert("An unexpected error occurred. Please try again later.");
+      toast.error("An unexpected error occurred. Please try again later.");
     } finally {
       // Always stop the loading state
       setFormLoading(false);

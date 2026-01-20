@@ -2,6 +2,7 @@ import { DM_Sans } from "next/font/google";
 import localFont from "next/font/local";
 
 import { ThemeProvider } from "@mui/material";
+import { Toaster } from "react-hot-toast";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -43,6 +44,17 @@ export default function RootLayout({ children }) {
             <main>{children}</main>
             <Footer />
             <ChatBox />
+            <Toaster
+              position="top-center"
+              reverseOrder={false}
+              toastOptions={{
+                style: {
+                  borderRadius: "var(--low-rounded)",
+                  background: "var(--grey-1)",
+                  color: "var(--white)",
+                },
+              }}
+            />
           </ThemeProvider>
         </AuthProvider>
       </body>
