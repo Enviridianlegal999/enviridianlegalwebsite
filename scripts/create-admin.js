@@ -11,8 +11,9 @@ const adminSchema = new mongoose.Schema(
   {
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    role: { type: String, enum: ["admin", "superadmin"], default: "admin" },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // Prevent model overwrite in dev or hot reload
@@ -66,7 +67,7 @@ async function main() {
   if (!email || !password) {
     console.log("Usage: node scripts/create-admin.js <email> <password>");
     console.log(
-      "Example: node scripts/create-admin.js admin@example.com admin123"
+      "Example: node scripts/create-admin.js admin@example.com admin123",
     );
     process.exit(1);
   }

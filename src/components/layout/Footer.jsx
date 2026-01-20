@@ -88,13 +88,17 @@ const Footer = () => {
             <Stack spacing={4}>
               <h5>Services</h5>
               <Stack spacing={1}>
-                <Link href="/services">Constitutional Law</Link>
-                <Link href="/services">Corporate & Commercial Law</Link>
-                <Link href="/services">Litigation & Dispute Resolution</Link>
-                <Link href="/services">Publishing & Media Law</Link>
-                <Link href="/services">Real Estate & Property</Link>
-                <Link href="/services">Arbitration & Mediation</Link>
-                <Link href="/services">Regulatory & Compliance Advisory</Link>
+                <Link href="/practice-areas">Constitutional Law</Link>
+                <Link href="/practice-areas">Corporate & Commercial Law</Link>
+                <Link href="/practice-areas">
+                  Litigation & Dispute Resolution
+                </Link>
+                <Link href="/practice-areas">Publishing & Media Law</Link>
+                <Link href="/practice-areas">Real Estate & Property</Link>
+                <Link href="/practice-areas">Arbitration & Mediation</Link>
+                <Link href="/practice-areas">
+                  Regulatory & Compliance Advisory
+                </Link>
               </Stack>
             </Stack>
           </Grid>

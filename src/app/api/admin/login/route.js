@@ -28,7 +28,7 @@ export async function POST(req) {
       );
     }
 
-    const token = jwt.sign({ email: admin.email }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ email: admin.email, role: admin.role }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
