@@ -18,12 +18,11 @@ import {
   SupervisorAccountRounded,
   LogoutRounded,
   ArrowForwardRounded,
+  ConnectWithoutContactRounded,
 } from "@mui/icons-material";
 
 import Container from "@/components/layout/Container";
-
 import { useAuth } from "@/contexts/AuthContext";
-
 import styles from "@/styles/pages/Dashboard.module.css";
 
 export default function Dashboard() {
@@ -47,14 +46,12 @@ export default function Dashboard() {
         justifyContent={"center"}
         height={"80vh"}
       >
-        Loading...
+        Loading Control Panel...
       </Box>
     );
   }
 
-  if (!isLoggedIn) {
-    return null; // useEffect will redirect
-  }
+  if (!isLoggedIn) return null;
 
   function DashboardCard({ title, subtitle, icon, href, color }) {
     return (
@@ -83,7 +80,7 @@ export default function Dashboard() {
                     width: 50,
                     height: 50,
                     borderRadius: "var(--low-rounded)",
-                    backgroundColor: "var(--bg)", // Light tint of the icon color
+                    backgroundColor: "var(--bg)",
                     color: color,
                     mb: 2,
                   }}
@@ -151,19 +148,31 @@ export default function Dashboard() {
             spacing={4}
             sx={{ maxWidth: 800, width: "100%", mb: 6 }}
           >
+            {/* Module 1: Blogs */}
             <DashboardCard
               title="Manage Blogs"
               subtitle="Create, edit, and organize your markdown articles."
               icon={<ArticleRounded fontSize="large" />}
               href="/admin/blogs"
-              color="var(--primary)" // Using your primary theme color
+              color="var(--primary)"
             />
+
+            {/* Module 2: Profile/Staff */}
             <DashboardCard
-              title="Manage Admin Profile"
+              title="Manage Admins"
               subtitle="Add new staff or update existing admins."
               icon={<SupervisorAccountRounded fontSize="large" />}
-              href="/admin/profile" // Or your specific admin management path
-              color="var(--secondary)" // Using your secondary theme color
+              href="/admin/profile"
+              color="var(--secondary)"
+            />
+
+            {/* Module 3: Leads Management */}
+            <DashboardCard
+              title="Manage Leads"
+              subtitle="View AI Assist, Consultations, and Contact inquiries."
+              icon={<ConnectWithoutContactRounded fontSize="large" />}
+              href="/admin/leads"
+              color="var(--secondary)" // Using a "Success" green for sales/leads
             />
           </Grid>
 
