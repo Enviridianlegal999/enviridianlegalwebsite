@@ -14,6 +14,7 @@ import { services, workshopService } from "@/constants/services";
 
 const PracticeAreasTypes = ({ sectionID, styles }) => {
   const [isGetFreeConsultation, setIsGetFreeConsultation] = useState(false);
+  const [isGetEnquiry, setIsGetEnquiry] = useState(false);
   const [selectedType, setSelectedType] = useState(null);
 
   return (
@@ -42,6 +43,7 @@ const PracticeAreasTypes = ({ sectionID, styles }) => {
                 <GetFreeConsultation
                   variant={"outlined"}
                   color={"primary"}
+                  boxTitle="Get Perfect Solution"
                   title="Get Solution"
                   open={isGetFreeConsultation}
                   setOpen={setIsGetFreeConsultation}
@@ -161,9 +163,10 @@ const PracticeAreasTypes = ({ sectionID, styles }) => {
                       <GetFreeConsultation
                         variant={"contained"}
                         color={"primary"}
+                        boxTitle="Send Us Your Enquiry"
                         title="Enquire Now"
-                        open={isGetFreeConsultation}
-                        setOpen={setIsGetFreeConsultation}
+                        open={isGetEnquiry}
+                        setOpen={setIsGetEnquiry}
                       />
                     </Box>
                   </Stack>

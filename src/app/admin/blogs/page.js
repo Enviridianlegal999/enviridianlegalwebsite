@@ -45,6 +45,7 @@ import {
 import Container from "@/components/layout/Container";
 import { useAuth } from "@/contexts/AuthContext";
 import { deleteBlogAction, getAllBlogs } from "@/actions/blog";
+
 import styles from "@/styles/pages/Dashboard.module.css";
 
 export default function BlogsList() {
@@ -66,14 +67,7 @@ export default function BlogsList() {
     try {
       setLoadingBlogs(true);
       setError("");
-      // const result = await getAllBlogsForPublic({
-      //   page,
-      //   limit: 8,
-      //   search: searchTerm || undefined,
-      // });
-
       const result = await getAllBlogs({
-        // Use the admin action
         page,
         limit: 8,
         search: searchTerm || undefined,
@@ -123,9 +117,9 @@ export default function BlogsList() {
   if (loading || !isLoggedIn) return null;
 
   return (
-    <section className={styles.blogsSection}>
+    <section className={styles.manageblogsSection}>
       <Container>
-        <Box py={4}>
+        <Box>
           {/* Breadcrumbs & Navigation */}
           <Stack
             direction="row"
@@ -179,7 +173,7 @@ export default function BlogsList() {
             sx={{
               mb: 4,
               bgcolor: "var(--white)",
-              borderRadius: "var(--high-rounded)",
+              borderRadius: "var(--low-rounded)",
             }}
             InputProps={{
               startAdornment: (
@@ -187,7 +181,7 @@ export default function BlogsList() {
                   <SearchRounded color="action" />
                 </InputAdornment>
               ),
-              sx: { borderRadius: "var(--high-rounded)" },
+              sx: { borderRadius: "var(--low-rounded)" },
             }}
           />
 
@@ -200,7 +194,7 @@ export default function BlogsList() {
           {/* Responsive Table / List */}
           <Paper
             sx={{
-              borderRadius: "var(--high-rounded)",
+              borderRadius: "var(--low-rounded)",
               overflow: "hidden",
               boxShadow: "var(--low-shadow)",
               border: "1px solid var(--bg)",

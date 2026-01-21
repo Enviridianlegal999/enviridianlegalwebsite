@@ -97,9 +97,9 @@ export default function BlogDetail() {
   const cleanContent = stripFrontmatter(blog.content);
 
   return (
-    <section className={styles.blogsSection}>
+    <section className={styles.viewBlogsSection}>
       <Container>
-        <Box py={4}>
+        <Box>
           {/* Breadcrumbs & Actions Header */}
           <Stack
             direction={{ xs: "column", sm: "row" }}

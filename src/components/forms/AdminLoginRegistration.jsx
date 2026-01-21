@@ -24,12 +24,7 @@ const AdminLoginRegistration = () => {
 
   if (isLoggedIn) {
     return (
-      <Box
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        height={"80vh"}
-      >
+      <Box display={"flex"} alignItems={"center"} justifyContent={"center"}>
         Redirecting to dashboard...
       </Box>
     );

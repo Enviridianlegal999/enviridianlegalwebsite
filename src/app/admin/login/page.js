@@ -13,7 +13,7 @@ export default function LoginPage() {
           display={"flex"}
           alignItems={"center"}
           justifyContent={"center"}
-          height={"80vh"}
+          height={"70vh"}
         >
           <Stack
             minWidth={400}

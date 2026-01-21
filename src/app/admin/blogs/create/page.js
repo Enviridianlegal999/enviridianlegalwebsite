@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import MDEditor from "@uiw/react-md-editor";
-import imageCompression from 'browser-image-compression';
+import imageCompression from "browser-image-compression";
 
 // MUI Components
 import {
@@ -37,6 +37,7 @@ import Container from "@/components/layout/Container";
 import { categoriesOnAdminView } from "@/constants/blogConstants";
 import { useAuth } from "@/contexts/AuthContext";
 import { createBlogAction } from "@/actions/blog";
+
 import styles from "@/styles/pages/Dashboard.module.css";
 
 export default function CreateBlog() {
@@ -127,9 +128,9 @@ export default function CreateBlog() {
   if (loading || !isLoggedIn) return null;
 
   return (
-    <section className={styles.blogsSection}>
+    <section className={styles.createblogsSection}>
       <Container>
-        <Box py={4}>
+        <Box>
           {/* Breadcrumbs & Navigation Consistent with BlogsList */}
           <Stack
             direction="row"
@@ -339,15 +340,12 @@ export default function CreateBlog() {
                 />
               </Box>
 
-              <Divider sx={{ my: 2 }} />
-
               {/* Bottom Action Section (Not Sticky) */}
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 justifyContent="space-between"
                 alignItems="center"
                 spacing={2}
-                pb={8}
               >
                 <Stack direction="row" spacing={2} alignItems="center">
                   <Typography fontWeight={600}>Status:</Typography>
@@ -390,7 +388,6 @@ export default function CreateBlog() {
                           : "var(--primaryDark)",
                     },
                     px: 6,
-                    borderRadius: "var(--high-rounded)",
                   }}
                 >
                   {loadingSubmit

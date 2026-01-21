@@ -177,9 +177,9 @@ export default function EditBlog() {
   }
 
   return (
-    <section className={styles.blogsSection}>
+    <section className={styles.editBlogsSection}>
       <Container>
-        <Box py={4}>
+        <Box>
           {/* Breadcrumbs & Navigation */}
           <Stack
             direction="row"
@@ -382,15 +382,12 @@ export default function EditBlog() {
                 />
               </Box>
 
-              <Divider sx={{ my: 2 }} />
-
               {/* Actions Section */}
               <Stack
                 direction={{ xs: "column", sm: "row" }}
                 justifyContent="space-between"
                 alignItems="center"
                 spacing={2}
-                pb={8}
               >
                 <Stack direction="row" spacing={2} alignItems="center">
                   <Typography fontWeight={600}>Status:</Typography>
@@ -433,7 +430,6 @@ export default function EditBlog() {
                           : "var(--primaryDark)",
                     },
                     px: 6,
-                    borderRadius: "var(--high-rounded)",
                   }}
                 >
                   {loadingSubmit ? "Saving..." : "Update Post"}

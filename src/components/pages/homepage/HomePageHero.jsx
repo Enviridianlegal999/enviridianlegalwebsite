@@ -125,6 +125,7 @@ const HomePageHero = ({ sectionID, styles }) => {
                       <GetFreeConsultation
                         variant={"contained"}
                         color={"primary"}
+                        boxTitle="Book Consultation With Us"
                         title="Book Consultation"
                         size="large"
                         open={isGetFreeConsultation}

@@ -8,12 +8,10 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import {
   Box,
-  Typography,
   Stack,
   Chip,
   Avatar,
   Grid,
-  Divider,
   Card,
 } from "@mui/material";
 

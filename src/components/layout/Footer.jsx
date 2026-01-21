@@ -74,7 +74,7 @@ const Footer = () => {
                 <Link href="/">Home</Link>
                 <Link href="/about">Chamber</Link>
                 <Link href="/practice-area">Practice</Link>
-                <Link href="/process">Process</Link>
+                <Link href="/process-and-approach">Process</Link>
                 <Link href="/contact">Contact</Link>
                 <Link href="/blog">Insights</Link>
               </Stack>

@@ -1,7 +1,7 @@
 .loginSection {
   min-height: 100vh;
   background: var(--blue-tint-13);
-  padding-top: var(--container-padding);
+  padding-top: var(--container-hero-top-padding);
   padding-bottom: var(--container-padding);
 
   h4 {
@@ -12,37 +12,51 @@
 .dashboardSection {
   min-height: 100vh;
   background: var(--blue-tint-13);
-  padding-top: var(--container-padding);
+  padding-top: var(--container-hero-top-padding);
   padding-bottom: var(--container-padding);
   h4 {
     color: var(--primary);
   }
 }
 
-.blogsSection {
+.manageblogsSection {
   min-height: 100vh;
   background: var(--blue-tint-13);
-  padding-top: var(--container-padding);
+  padding-top: var(--container-hero-top-padding);
   padding-bottom: var(--container-padding);
 }
 
-.blogCreateSection {
+.createblogsSection {
   min-height: 100vh;
   background: var(--blue-tint-13);
-  padding-top: var(--container-padding);
+  padding-top: var(--container-hero-top-padding);
   padding-bottom: var(--container-padding);
 }
 
-.viewBlogSection {
+.viewBlogsSection {
   min-height: 100vh;
   background: var(--blue-tint-13);
-  padding-top: var(--container-padding);
-  padding-bottom: var(--container-padding);
-}
-.editBlogSection {
-  min-height: 100vh;
-  background: var(--blue-tint-13);
-  padding-top: var(--container-padding);
+  padding-top: var(--container-hero-top-padding);
   padding-bottom: var(--container-padding);
 }
 
+.editBlogsSection {
+  min-height: 100vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-hero-top-padding);
+  padding-bottom: var(--container-padding);
+}
+
+.manageAdminsSection {
+  min-height: 100vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-hero-top-padding);
+  padding-bottom: var(--container-padding);
+}
+
+.manageLeadsSection {
+  min-height: 100vh;
+  background: var(--blue-tint-13);
+  padding-top: var(--container-hero-top-padding);
+  padding-bottom: var(--container-padding);
+}

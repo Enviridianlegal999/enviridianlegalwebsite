@@ -8,6 +8,7 @@ import GetFreeConsultationRegistration from "@/components/forms/GetFreeConsultat
 export default function GetFreeConsultation({
   variant,
   color,
+  boxTitle= "Get Consultation",
   title = "Book a consultation",
   btnEndIcon,
   size = "medium",
@@ -37,7 +38,7 @@ export default function GetFreeConsultation({
         {title}
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle color="secondary">Get Consultation</DialogTitle>
+        <DialogTitle color="secondary">{boxTitle}</DialogTitle>
         <DialogContent sx={{ pb: 2, minWidth: { lg: 512, sm: 480, xs: 320 } }}>
           <GetFreeConsultationRegistration
             themeColor={"secondary"}

@@ -102,7 +102,8 @@ export default function AdminProfile() {
   const handleResetPassword = async (id, email) => {
     const newPass = prompt(`Enter new password for ${email}:`);
     // if (!newPass || newPass.length < 6) return alert("Password too short.");
-    if (!newPass || newPass.length < 6) return toast.error("Password too short.");
+    if (!newPass || newPass.length < 6)
+      return toast.error("Password too short.");
     const res = await updateAdminPassword(id, newPass);
     // if (res.success) alert("Password updated.");
     if (res.success) toast.success("Password updated.");
@@ -123,9 +124,15 @@ export default function AdminProfile() {
   // Access Denied State
   if (!isSuperAdmin) {
     return (
-      <section className={styles.blogsSection}>
+      <section className={styles.manageAdminsSection}>
         <Container>
-          <Box py={10} textAlign="center">
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            minHeight={"70vh"}
+          >
             <SecurityRounded
               sx={{ fontSize: 80, color: "var(--grey-10)", mb: 2 }}
             />
@@ -149,9 +156,9 @@ export default function AdminProfile() {
   }
 
   return (
-    <section className={styles.blogsSection}>
+    <section className={styles.manageAdminsSection}>
       <Container>
-        <Box py={4}>
+        <Box>
           {/* Breadcrumbs & Navigation */}
           <Stack
             direction="row"
@@ -188,7 +195,7 @@ export default function AdminProfile() {
             sx={{
               p: 3,
               mb: 4,
-              borderRadius: "var(--high-rounded)",
+              borderRadius: "var(--low-rounded)",
               boxShadow: "var(--low-shadow)",
               border: "1px solid var(--bg)",
             }}
@@ -237,7 +244,6 @@ export default function AdminProfile() {
                   sx={{
                     px: 4,
                     fontWeight: 700,
-                    borderRadius: "var(--low-rounded)",
                     backgroundColor: "var(--primary)",
                     "&:hover": { backgroundColor: "var(--primaryDark)" },
                   }}
@@ -251,7 +257,7 @@ export default function AdminProfile() {
           {/* Staff Table */}
           <Paper
             sx={{
-              borderRadius: "var(--high-rounded)",
+              borderRadius: "var(--low-rounded)",
               overflow: "hidden",
               boxShadow: "var(--low-shadow)",
               border: "1px solid var(--bg)",

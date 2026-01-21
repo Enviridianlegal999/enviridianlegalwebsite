@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,6 +27,7 @@ import {
 
 import Container from "@/components/layout/Container";
 import { useAuth } from "@/contexts/AuthContext";
+
 import styles from "@/styles/pages/Dashboard.module.css";
 
 export default function Dashboard() {
@@ -58,7 +60,7 @@ export default function Dashboard() {
 
   function DashboardCard({ title, subtitle, icon, href, color }) {
     return (
-      <Grid size={{ xs: 12, sm: 6 }}>
+      <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
         <Link href={href} style={{ textDecoration: "none" }}>
           <Card
             sx={{
@@ -129,8 +131,7 @@ export default function Dashboard() {
           flexDirection={"column"}
           alignItems={"center"}
           justifyContent={"center"}
-          minHeight={"80vh"}
-          py={5}
+          minHeight={"70vh"}
         >
           {/* Header Section */}
           <Box sx={{ textAlign: "center", mb: 6, mt: 2 }}>
@@ -171,11 +172,7 @@ export default function Dashboard() {
           </Box>
 
           {/* Feature Grid */}
-          <Grid
-            container
-            spacing={4}
-            sx={{ maxWidth: 800, width: "100%", mb: 6 }}
-          >
+          <Grid container spacing={4} mb={6}>
             {/* Module 1: Blogs */}
             <DashboardCard
               title="Manage Blogs"

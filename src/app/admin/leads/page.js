@@ -34,6 +34,7 @@ import {
 import Container from "@/components/layout/Container";
 import { useAuth } from "@/contexts/AuthContext";
 import { getLeadsData, deleteLeadAction } from "@/actions/leads";
+
 import styles from "@/styles/pages/Dashboard.module.css";
 
 export default function LeadsPage() {
@@ -84,9 +85,9 @@ export default function LeadsPage() {
   if (loading || !isLoggedIn) return null;
 
   return (
-    <section className={styles.blogsSection}>
+    <section className={styles.manageLeadsSection}>
       <Container>
-        <Box py={4}>
+        <Box>
           {/* Header & Breadcrumbs */}
           <Stack spacing={1} mb={4}>
             <Breadcrumbs aria-label="breadcrumb">
@@ -114,7 +115,7 @@ export default function LeadsPage() {
           {/* Tab Navigation */}
           <Paper
             sx={{
-              borderRadius: "var(--high-rounded)",
+              borderRadius: "var(--low-rounded) var(--low-rounded) 0 0",
               mb: 3,
               boxShadow: "var(--low-shadow)",
             }}
@@ -134,7 +135,7 @@ export default function LeadsPage() {
           {/* Table Content */}
           <Paper
             sx={{
-              borderRadius: "var(--high-rounded)",
+              borderRadius: "var(--low-rounded)",
               overflow: "hidden",
               border: "1px solid var(--bg)",
               boxShadow: "var(--low-shadow)",

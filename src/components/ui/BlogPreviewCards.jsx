@@ -75,10 +75,10 @@ async function BlogPreviewCards({ styles }) {
               padding: "20px",
               display: "flex",
               left: 0,
-              bottom: 0,
+              bottom: 10,
             }}
           >
-            <Stack spacing={1} alignItems="flex-start">
+            <Stack spacing={2} alignItems="flex-start">
               {/* Blog Title */}
               <span className={styles.blogTitle}>{blog.title}</span>
 

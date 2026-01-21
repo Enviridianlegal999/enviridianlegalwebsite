@@ -83,7 +83,7 @@ function BlogCard({ blog }) {
                 alignItems="center"
               >
                 <Chip
-                  variant="outlined"
+                  variant="contained"
                   color="secondary"
                   label={blog.category || "General"}
                   size="small"
