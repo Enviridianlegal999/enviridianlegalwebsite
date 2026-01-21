@@ -1,6 +1,8 @@
 import { DM_Sans } from "next/font/google";
 import localFont from "next/font/local";
 
+import NextTopLoader from "nextjs-toploader";
+
 import { ThemeProvider } from "@mui/material";
 import { Toaster } from "react-hot-toast";
 
@@ -40,6 +42,16 @@ export default function RootLayout({ children }) {
       <body className={`${dmSans.variable} ${pinland.variable}`}>
         <AuthProvider>
           <ThemeProvider theme={theme}>
+            <NextTopLoader
+              color="var(--secondary)"
+              initialPosition={0.08}
+              crawlSpeed={200}
+              height={3}
+              crawl={true}
+              showSpinner={false}
+              easing="ease"
+              speed={200}
+            />
             <Header />
             <main>{children}</main>
             <Footer />
