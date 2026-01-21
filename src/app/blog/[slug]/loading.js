@@ -37,7 +37,7 @@ export default function LoadingPost() {
                 direction="row"
                 spacing={2}
                 alignItems="center"
-                sx={{ mb: 4, pb: 4, borderBottom: "1px solid var(--primary)" }}
+                sx={{ mb: 4, pb: 4, borderBottom: "1px solid var(--bg)" }}
               >
                 <Skeleton variant="circular" width={40} height={40} />
                 <Box>
@@ -91,7 +91,7 @@ export default function LoadingPost() {
                 sx={{
                   mt: 4,
                   p: 3,
-                  border: "1px solid var(--secondary)",
+                  border: "1px solid var(--bg)",
                   borderRadius: "16px",
                 }}
               >
