@@ -186,7 +186,7 @@ export async function createBlogAction(prevState, formData) {
     }
 
     // Generate slug
-    const slug = slugify(title, { lower: true });
+    const slug = slugify(title, { lower: true, strict: true, trim: true });
 
     // Check slug uniqueness
     const existingBlog = await Blog.findOne({ slug });
@@ -278,7 +278,7 @@ export async function updateBlogAction(prevState, formData, id) {
       };
     }
 
-    const slug = slugify(title, { lower: true });
+    const slug = slugify(title, { lower: true, strict: true, trim: true });
 
     // Check slug uniqueness (exclude current blog)
     const existingBlog = await Blog.findOne({ slug, _id: { $ne: id } }).lean();
