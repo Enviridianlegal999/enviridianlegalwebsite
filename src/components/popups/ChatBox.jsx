@@ -11,6 +11,7 @@ import {
   Paper,
   Fab,
   Stack,
+  CircularProgress, // Added for the loading spinner
 } from "@mui/material";
 
 import { TbMessageChatbot } from "react-icons/tb";
@@ -35,7 +36,9 @@ const ChatBox = () => {
     phone: "",
     message: "",
   });
+
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isPending, setIsPending] = useState(false); // 🔥 New: tracks server submission
 
   // Handle open/close and reset
   const toggleChatbox = () => {
@@ -52,7 +55,7 @@ const ChatBox = () => {
   const initChat = () => {
     setMessages([
       {
-        text: `Hi, I'm ${"Lawyer Bot"}, your ${"legal assistant"}. Please enter your name to get started.`,
+        text: `Hi, I'm Lawyer Bot, your legal assistant. Please enter your name to get started.`,
         sender: "bot",
       },
     ]);
@@ -69,6 +72,7 @@ const ChatBox = () => {
     setInterest("");
     setFormData({ email: "", phone: "", message: "" });
     setIsSubmitted(false);
+    setIsPending(false);
   };
 
   const addMessage = (text, sender = "bot") => {
@@ -110,8 +114,7 @@ const ChatBox = () => {
 
     setTimeout(() => {
       addMessage(
-        `Noted. We can assist you with ${item} matters. Please provide your contact details so our legal team can reach out to you promptly.
-`,
+        `Noted. We can assist you with ${item} matters. Please provide your contact details so our legal team can reach out to you promptly.`,
         "bot",
       );
       setStep(4);
@@ -119,7 +122,7 @@ const ChatBox = () => {
   };
 
   const handleFormSubmit = async () => {
-    // Ensure required fields are filled out
+    // 1. Client-side field check
     if (!formData.email || !formData.phone || !formData.message) return;
 
     const finalData = {
@@ -131,39 +134,50 @@ const ChatBox = () => {
       message: formData.message,
     };
 
-    // Validate form data with Zod schema
+    // 2. Validate form data with Zod schema
     const validationResult = aiAssistFormSchema.safeParse(finalData);
 
     if (!validationResult.success) {
-      // If validation fails, show an alert with error messages
       const errorMessages = validationResult.error.issues.map(
         (issue) => issue.message,
       );
-      alert(errorMessages.join("\n")); // Show error messages in an alert box
+      alert(errorMessages.join("\n"));
       return;
     }
 
-    // Add user's form submission message
-    addMessage("Submitted form", "user");
+    // 3. Prevent multiple submissions
+    setIsPending(true);
 
     try {
-      // Call the server-side action to handle registration
+      // Add user's form submission message
+      addMessage("Submitted form", "user");
+
+      // Call server action
       const response = await aiAssistRegistrationAction(finalData);
-      setTimeout(() => {
-        if (response.success) {
+
+      if (response.success) {
+        setTimeout(() => {
           addMessage(
             "Thank you for sharing your details. One of our lawyers will contact you shortly to discuss your case.",
             "bot",
           );
-        }
-        setIsSubmitted(true);
-      }, 500);
+          setIsSubmitted(true);
+        }, 500);
+      } else {
+        addMessage(
+          "Sorry, we couldn't process your request. Please try again later.",
+          "bot",
+        );
+      }
     } catch (error) {
       console.error("Error during submission:", error);
       addMessage(
-        "Apologies, something went wrong while submitting your request. Please try again or call our office directly.",
+        "Apologies, something went wrong. Please check your connection and try again.",
         "bot",
       );
+    } finally {
+      // 4. Re-enable buttons if needed (though isSubmitted handles the UI swap)
+      setIsPending(false);
     }
   };
 
@@ -194,7 +208,8 @@ const ChatBox = () => {
               width={128}
             />
           </Box>
-          <>
+
+          <Box sx={{ flexGrow: 1, overflowY: "auto", mb: 2 }}>
             {messages.map((message, index) => (
               <Box
                 key={index}
@@ -208,15 +223,16 @@ const ChatBox = () => {
               </Box>
             ))}
 
-            {/* Step 1: Ask for name */}
+            {/* Step 1: Name */}
             {step === 1 && !isSubmitted && (
-              <Stack direction={"row"} spacing={1}>
+              <Stack direction={"row"} spacing={1} mt={1}>
                 <TextField
                   size="small"
                   value={userInput}
                   onChange={(e) => setUserInput(e.target.value)}
                   placeholder="Write your name here"
                   fullWidth
+                  onKeyPress={(e) => e.key === "Enter" && handleSendName()}
                 />
                 <Button
                   disableElevation
@@ -228,9 +244,9 @@ const ChatBox = () => {
               </Stack>
             )}
 
-            {/* Step 2: Select user type */}
+            {/* Step 2: User Type */}
             {step === 2 && (
-              <Stack spacing={1}>
+              <Stack spacing={1} mt={1}>
                 {[
                   "Individual Client",
                   "Business Owner",
@@ -249,9 +265,9 @@ const ChatBox = () => {
               </Stack>
             )}
 
-            {/* Step 3: Select interest */}
+            {/* Step 3: Interest */}
             {step === 3 && (
-              <Stack spacing={1}>
+              <Stack spacing={1} mt={1}>
                 {[
                   "Property Dispute",
                   "Contract Drafting",
@@ -272,9 +288,9 @@ const ChatBox = () => {
               </Stack>
             )}
 
-            {/* Step 4: Form fields */}
+            {/* Step 4: Final Form */}
             {step === 4 && !isSubmitted && (
-              <Stack spacing={1}>
+              <Stack spacing={1} mt={1}>
                 <TextField
                   size="small"
                   label="Email"
@@ -308,12 +324,18 @@ const ChatBox = () => {
                   disableElevation
                   variant="contained"
                   onClick={handleFormSubmit}
+                  disabled={isPending} // 🔥 Prevents multiple clicks
+                  startIcon={
+                    isPending ? (
+                      <CircularProgress size={20} color="inherit" />
+                    ) : null
+                  }
                 >
-                  Submit
+                  {isPending ? "Submitting..." : "Submit"}
                 </Button>
               </Stack>
             )}
-          </>
+          </Box>
         </Paper>
       )}
     </>
