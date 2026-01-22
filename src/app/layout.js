@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ChatBox from "@/components/popups/ChatBox";
+import AdminLoginFAB from "@/components/popups/AdminLoginFAB";
 
 import { AuthProvider } from "@/contexts/AuthContext";
 
@@ -55,6 +56,7 @@ export default function RootLayout({ children }) {
             <Header />
             <main>{children}</main>
             <Footer />
+            <AdminLoginFAB />
             <ChatBox />
             <Toaster
               position="top-center"
