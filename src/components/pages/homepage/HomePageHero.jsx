@@ -14,11 +14,11 @@ import Container from "@/components/layout/Container";
 import FullWidthContainer from "@/components/layout/FullWidthContainer";
 import GetFreeConsultation from "@/components/popups/GetFreeConsultation";
 
-import homepageHero from "../../../../public/assets/images/hero-image.webp";
-import supremeCourt from "../../../../public/assets/images/supreme-court.webp";
-import highCourt from "../../../../public/assets/images/high-court.webp";
-import publicInterest from "../../../../public/assets/images/public-interest.webp";
-import regulatoryWork from "../../../../public/assets/images/regulatory-work.webp";
+import homepageHero from "../../../../public/assets/images/hero-image-fg.jpg";
+import supremeCourt from "../../../../public/assets/images/supreme-court.png";
+import highCourt from "../../../../public/assets/images/high-court.png";
+import publicInterest from "../../../../public/assets/images/public-interest.png";
+import regulatoryWork from "../../../../public/assets/images/regulatory-work.png";
 
 const HomePageHero = ({ sectionID, styles }) => {
   const [isGetFreeConsultation, setIsGetFreeConsultation] = useState(false);
@@ -26,16 +26,19 @@ const HomePageHero = ({ sectionID, styles }) => {
   return (
     <>
       <section id={sectionID} className={styles.heroSection}>
-        <Box sx={{ display: { xs: "none", sm: "none", lg: "block" } }}>
+        <Box sx={{ display: { xs: "block", sm: "block", lg: "block" } }}>
           <FullWidthContainer
-            image="assets/images/hero-image.webp"
+            image="assets/images/hero-image-3.jpg"
             align="right"
-            width="45%"
+            width="100%"
             height="100%"
             mode="behind"
             objectFit="cover"
           />
         </Box>
+
+        {/* Video Overlay (optional - for better text contrast) */}
+        <div className={styles.heroOverlay}></div>
 
         {/* Content for the hero section */}
         <Container>
@@ -49,6 +52,7 @@ const HomePageHero = ({ sectionID, styles }) => {
                 lg: 0,
               }}
               alignItems={"center"}
+              spacing={1}
             >
               <Grid size={{ xs: 12, sm: 12, lg: 7 }}>
                 <Stack
@@ -149,35 +153,41 @@ const HomePageHero = ({ sectionID, styles }) => {
                   </Stack>
                 </Stack>
               </Grid>
+              <Grid size={{ xs: 12, sm: 12, lg: 5 }}>
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 1.4 }}
+                >
+                  <Box
+                    position={"relative"}
+                    minHeight={{ xs: 400, sm: 500, lg: 520 }}
+                    height={"100%"}
+                    width={"100%"}
+                    overflow={"clip"}
+                    // border={1}
+                    marginTop={{ xs: 4, sm: 8, lg: 0 }}
+                    sx={{
+                      display: { xs: "block", sm: "block", lg: "block" },
+                      borderRadius: "var(--high-rounded)",
+                      boxShadow: "var(--low-shadow)",
+                    }}
+                  >
+                    <Image
+                      src={homepageHero}
+                      alt={companyShortBio}
+                      fill
+                      sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      style={{
+                        objectFit: "cover",
+                        transform: "scale(1)",
+                        borderRadius: "var(--high-rounded)",
+                      }}
+                    />
+                  </Box>
+                </motion.div>
+              </Grid>
             </Grid>
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 1.4 }}
-            >
-              <Box
-                position={"relative"}
-                minHeight={{ xs: 400, sm: 500, lg: 600 }}
-                height={"100%"}
-                width={"100%"}
-                overflow={"clip"}
-                // border={1}
-                marginTop={{ xs: 4, sm: 8 }}
-                sx={{ display: { xs: "block", sm: "block", lg: "none" } }}
-              >
-                <Image
-                  src={homepageHero}
-                  alt={companyShortBio}
-                  fill
-                  sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  style={{
-                    objectFit: "cover",
-                    transform: "scale(1)",
-                    borderRadius: "var(--high-rounded)",
-                  }}
-                />
-              </Box>
-            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -187,7 +197,7 @@ const HomePageHero = ({ sectionID, styles }) => {
               <Grid
                 container
                 alignItems={"stretch"}
-                marginTop={{ xs: 4, sm: 8 }}
+                marginTop={{ xs: 4, sm: 4 }}
                 spacing={{ xs: 4, sm: 4, lg: 8 }}
               >
                 <Grid
@@ -197,7 +207,10 @@ const HomePageHero = ({ sectionID, styles }) => {
                   <Stack spacing={1} className={styles.heroCardContentStack}>
                     <Image
                       src={supremeCourt}
+                      width={150}
+                      height={70}
                       alt={"Practice In Supreme Court Of India"}
+                      style={{objectFit:"contain"}}
                     />
                     <span>Supreme Court</span>
                   </Stack>
@@ -209,7 +222,10 @@ const HomePageHero = ({ sectionID, styles }) => {
                   <Stack spacing={1} className={styles.heroCardContentStack}>
                     <Image
                       src={highCourt}
+                      width={150}
+                      height={70}
                       alt={"Practice In High Court Of India"}
+                      style={{objectFit:"contain"}}
                     />
                     <span>High Court</span>
                   </Stack>
@@ -221,7 +237,10 @@ const HomePageHero = ({ sectionID, styles }) => {
                   <Stack spacing={1} className={styles.heroCardContentStack}>
                     <Image
                       src={publicInterest}
+                      width={150}
+                      height={70}
                       alt={"Matters related to public interest"}
+                      style={{objectFit:"contain"}}
                     />
                     <span>Public Interest</span>
                   </Stack>
@@ -233,7 +252,10 @@ const HomePageHero = ({ sectionID, styles }) => {
                   <Stack spacing={1} className={styles.heroCardContentStack}>
                     <Image
                       src={regulatoryWork}
+                      width={150}
+                      height={70}
                       alt={"Regulatory matters and legal regulations"}
+                      style={{objectFit:"contain"}}
                     />
                     <span>Regulatory Work</span>
                   </Stack>
