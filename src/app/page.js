@@ -30,7 +30,7 @@ export default function Home() {
         />
       </FloatingSection>
       <HomePageApproach sectionID={"approach"} styles={styles} />
-      <HomePageTestimonials sectionID={"testimonials"} styles={styles} />
+      {/* <HomePageTestimonials sectionID={"testimonials"} styles={styles} /> */}
       <HomePageBlogPreview sectionID={"blog-preview"} styles={styles} />
       <HomePageCTA sectionID={"homepage-cta"} styles={styles} />
     </>

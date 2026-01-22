@@ -1,3 +1,4 @@
+import AboutPageCities from "@/components/pages/about/AboutPageCities";
 import AboutPageCTA from "@/components/pages/about/AboutPageCTA";
 import AboutPageHero from "@/components/pages/about/AboutPageHero";
 import AboutPageOverview from "@/components/pages/about/AboutPageOverview";
@@ -14,7 +15,8 @@ export default function About() {
       <AboutPageHero sectionID="main" styles={styles} />
       <AboutPageOverview sectionID="overview" styles={styles} />
       <AboutPageStory sectionID="our-story" styles={styles} />
-      <AboutPageTeam sectionID="our-team" styles={styles} />
+      {/* <AboutPageTeam sectionID="our-team" styles={styles} /> */}
+      <AboutPageCities sectionID="our-proximity" styles={styles} />
       <AboutPageUSP sectionID="usp" styles={styles} />
       <AboutPageRecognition sectionID="recognition" styles={styles} />
       <AboutPageCTA sectionID="cta" styles={styles} />
