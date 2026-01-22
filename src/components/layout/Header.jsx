@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Box, IconButton, Stack } from "@mui/material";
 import KeyboardDoubleArrowDownRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowDownRounded";
 import KeyboardDoubleArrowUpRoundedIcon from "@mui/icons-material/KeyboardDoubleArrowUpRounded";
+import ElectricBoltRoundedIcon from '@mui/icons-material/ElectricBoltRounded';
 
 import { companyShortBio } from "@/constants/company";
 import { headerNavItems } from "@/constants/links";
@@ -15,7 +16,8 @@ import { headerNavItems } from "@/constants/links";
 import Container from "@/components/layout/Container";
 import DesktopNavbar from "@/components/layout/DesktopNavbar";
 import TabletNavbar from "@/components/layout/TabletNavbar";
-import CallUs from "@/components/popups/CallUs";
+// import CallUs from "@/components/popups/CallUs";
+import GetFreeConsultation from "@/components/popups/GetFreeConsultation";
 
 import enviridianCompanyLogo from "../../../public/assets/company/enviridian-logo.svg";
 
@@ -24,7 +26,7 @@ import styles from "@/styles/components/Header.module.css";
 const Header = () => {
   const [open, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isReadyToCallPopup, setIsReadyToCallPopup] = useState(false);
+  const [isGetFreeConsultation, setIsGetFreeConsultation] = useState(false);
 
   const SCROLL_NUDGE = 30; // ~ one mouse wheel tick
 
@@ -79,10 +81,19 @@ const Header = () => {
                 spacing={2}
               >
                 <TabletNavbar styles={styles} />
-                <CallUs
+                <GetFreeConsultation
+                  variant={"contained"}
+                  color={"secondary"}
+                  boxTitle="Get Quick Help"
+                  title="Quick Help"
+                  open={isGetFreeConsultation}
+                  setOpen={setIsGetFreeConsultation}
+                  btnEndIcon={<ElectricBoltRoundedIcon />}
+                />
+                {/* <CallUs
                   open={isReadyToCallPopup}
                   setOpen={setIsReadyToCallPopup}
-                />
+                /> */}
               </Stack>
             </Box>
             <Box sx={{ display: { xs: "none", lg: "block" } }}>
@@ -93,9 +104,18 @@ const Header = () => {
                 spacing={5}
               >
                 <DesktopNavbar styles={styles} />
-                <CallUs
+                {/* <CallUs
                   open={isReadyToCallPopup}
                   setOpen={setIsReadyToCallPopup}
+                /> */}
+                <GetFreeConsultation
+                  variant={"contained"}
+                  color={"secondary"}
+                  boxTitle="Get Quick Help"
+                  title="Quick Help"
+                  open={isGetFreeConsultation}
+                  setOpen={setIsGetFreeConsultation}
+                  btnEndIcon={<ElectricBoltRoundedIcon />}
                 />
               </Stack>
             </Box>
@@ -116,9 +136,18 @@ const Header = () => {
                     </li>
                   ))}
                 </ul>
-                <CallUs
+                {/* <CallUs
                   open={isReadyToCallPopup}
                   setOpen={setIsReadyToCallPopup}
+                /> */}
+                <GetFreeConsultation
+                  variant={"contained"}
+                  color={"secondary"}
+                  boxTitle="Get Quick Help"
+                  title="Quick Help"
+                  open={isGetFreeConsultation}
+                  setOpen={setIsGetFreeConsultation}
+                  btnEndIcon={<ElectricBoltRoundedIcon />}
                 />
               </Stack>
             </nav>

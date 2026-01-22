@@ -48,7 +48,7 @@ const ContactPageDetails = ({ sectionID, styles }) => {
               <Stack spacing={2} alignItems={"center"}>
                 <FaPhoneAlt color="var(--primary)" size={64} />
                 <h6>Phone</h6>
-                <p>{companyPhone}</p>
+                {/* <p>{companyPhone}</p> */}
               </Stack>
             </motion.div>
           </Grid>

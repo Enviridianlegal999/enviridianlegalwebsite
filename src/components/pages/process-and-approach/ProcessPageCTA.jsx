@@ -20,7 +20,7 @@ const ProcessPageCTA = ({ sectionID, styles }) => {
             "Our approach: clear communication, realistic strategies, and unwavering commitment to client success."
           }
           ctaButtonText={"Quick Call"}
-          actionType={"call"}
+          actionType={"quick-help"}
         />
       </motion.div>
     </section>

@@ -110,7 +110,7 @@ const Footer = () => {
             <Stack spacing={4}>
               <h5>Contact</h5>
               <Stack spacing={1}>
-                <a href={`tel:${companyPhone}`}>{companyPhone}</a>
+                {/* <a href={`tel:${companyPhone}`}>{companyPhone}</a> */}
                 <a href={`mailto:${companyEmail}`}>{companyEmail}</a>
               </Stack>
               <Stack spacing={1}>

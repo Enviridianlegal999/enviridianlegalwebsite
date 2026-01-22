@@ -5,9 +5,11 @@ import { useState } from "react";
 
 import Image from "next/image";
 import { Box, Button, Grid, Stack } from "@mui/material";
+import ElectricBoltRoundedIcon from "@mui/icons-material/ElectricBoltRounded";
 
 import Container from "./Container";
 import CallUs from "../popups/CallUs";
+import GetFreeConsultation from "../popups/GetFreeConsultation";
 
 const PageCTA = ({
   ctaImage,
@@ -18,6 +20,7 @@ const PageCTA = ({
   linkUrl,
 }) => {
   const [isReadyToCallPopup, setIsReadyToCallPopup] = useState(false);
+  const [isGetFreeConsultation, setIsGetFreeConsultation] = useState(false);
 
   return (
     <Container>
@@ -58,6 +61,16 @@ const PageCTA = ({
                 <CallUs
                   open={isReadyToCallPopup}
                   setOpen={setIsReadyToCallPopup}
+                />
+              ) : actionType === "quick-help" ? (
+                <GetFreeConsultation
+                  variant={"contained"}
+                  color={"secondary"}
+                  boxTitle="Get Quick Help"
+                  title="Quick Help"
+                  open={isGetFreeConsultation}
+                  setOpen={setIsGetFreeConsultation}
+                  btnEndIcon={<ElectricBoltRoundedIcon />}
                 />
               ) : actionType === "internal-link" ? (
                 <Button

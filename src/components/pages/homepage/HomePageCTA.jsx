@@ -20,7 +20,7 @@ const HomePageCTA = ({ sectionID, styles }) => {
             "Get clear, practical legal guidance from experienced professionals; no obligation, just answers."
           }
           ctaButtonText={"Quick Call"}
-          actionType="call"
+          actionType="quick-help"
         />
       </motion.div>
     </section>
