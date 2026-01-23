@@ -18,7 +18,8 @@ import {
   specialAppointment,
 } from "@/constants/company";
 
-import enviridianCompanyLogo from "../../../public/assets/company/enviridian-logo.svg";
+// import enviridianCompanyLogo from "../../../public/assets/company/enviridian-logo.svg";
+import enviridianCompanyLogo from "../../../public/assets/company/enviridian-logo-long-svg.svg";
 
 import styles from "@/styles/components/Footer.module.css";
 

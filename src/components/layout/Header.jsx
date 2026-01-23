@@ -17,7 +17,9 @@ import DesktopNavbar from "@/components/layout/DesktopNavbar";
 import TabletNavbar from "@/components/layout/TabletNavbar";
 import GetFreeConsultation from "@/components/popups/GetFreeConsultation";
 
-import enviridianCompanyLogo from "../../../public/assets/company/enviridian-logo.svg";
+// import enviridianCompanyLogo from "../../../public/assets/company/enviridian-logo.svg";
+import enviridianCompanyLogo from "../../../public/assets/company/enviridian-logo-long-svg.svg";
+
 import styles from "@/styles/components/Header.module.css";
 
 const Header = () => {
