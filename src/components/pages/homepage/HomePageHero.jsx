@@ -14,7 +14,7 @@ import Container from "@/components/layout/Container";
 import FullWidthContainer from "@/components/layout/FullWidthContainer";
 import GetFreeConsultation from "@/components/popups/GetFreeConsultation";
 
-import homepageHero from "../../../../public/assets/images/hero-image-fg.jpg";
+import homepageHero from "../../../../public/assets/images/hero-image-fg-4.png";
 import supremeCourt from "../../../../public/assets/images/supreme-court.png";
 import highCourt from "../../../../public/assets/images/high-court.png";
 import publicInterest from "../../../../public/assets/images/public-interest.png";
@@ -28,7 +28,7 @@ const HomePageHero = ({ sectionID, styles }) => {
       <section id={sectionID} className={styles.heroSection}>
         <Box sx={{ display: { xs: "block", sm: "block", lg: "block" } }}>
           <FullWidthContainer
-            image="assets/images/hero-image-3.jpg"
+            image="assets/images/hero-image-7.png"
             align="right"
             width="100%"
             height="100%"
@@ -57,7 +57,7 @@ const HomePageHero = ({ sectionID, styles }) => {
               <Grid size={{ xs: 12, sm: 12, lg: 7 }}>
                 <Stack
                   alignItems={{ xs: "center", sm: "flex-start" }}
-                  spacing={4}
+                  spacing={3}
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 50 }}
@@ -66,7 +66,6 @@ const HomePageHero = ({ sectionID, styles }) => {
                   >
                     <Chip
                       color="secondary"
-                      variant="outlined"
                       size="large"
                       label="CONSTITUTIONAL, SERVICE & IP LAW"
                     />
@@ -128,7 +127,7 @@ const HomePageHero = ({ sectionID, styles }) => {
                     >
                       <GetFreeConsultation
                         variant={"contained"}
-                        color={"primary"}
+                        color={"secondary"}
                         boxTitle="Book Consultation With Us"
                         title="Book Consultation"
                         size="large"
@@ -142,10 +141,12 @@ const HomePageHero = ({ sectionID, styles }) => {
                       transition={{ duration: 0.4, delay: 1.2 }}
                     >
                       <Button
+                        color="primary"
                         component={Link}
                         href="/practice-areas"
-                        variant="outlined"
+                        variant="contained"
                         size="large"
+                        disableElevation
                       >
                         Explore Services
                       </Button>
@@ -169,8 +170,6 @@ const HomePageHero = ({ sectionID, styles }) => {
                     marginTop={{ xs: 4, sm: 8, lg: 0 }}
                     sx={{
                       display: { xs: "block", sm: "block", lg: "block" },
-                      borderRadius: "var(--high-rounded)",
-                      boxShadow: "var(--low-shadow)",
                     }}
                   >
                     <Image
@@ -179,9 +178,8 @@ const HomePageHero = ({ sectionID, styles }) => {
                       fill
                       sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       style={{
-                        objectFit: "cover",
+                        objectFit: "contain",
                         transform: "scale(1)",
-                        borderRadius: "var(--high-rounded)",
                       }}
                     />
                   </Box>
@@ -210,7 +208,7 @@ const HomePageHero = ({ sectionID, styles }) => {
                       width={150}
                       height={70}
                       alt={"Practice In Supreme Court Of India"}
-                      style={{objectFit:"contain"}}
+                      style={{ objectFit: "contain" }}
                     />
                     <span>Supreme Court</span>
                   </Stack>
@@ -225,7 +223,7 @@ const HomePageHero = ({ sectionID, styles }) => {
                       width={150}
                       height={70}
                       alt={"Practice In High Court Of India"}
-                      style={{objectFit:"contain"}}
+                      style={{ objectFit: "contain" }}
                     />
                     <span>High Court</span>
                   </Stack>
@@ -240,7 +238,7 @@ const HomePageHero = ({ sectionID, styles }) => {
                       width={150}
                       height={70}
                       alt={"Matters related to public interest"}
-                      style={{objectFit:"contain"}}
+                      style={{ objectFit: "contain" }}
                     />
                     <span>Public Interest</span>
                   </Stack>
@@ -255,7 +253,7 @@ const HomePageHero = ({ sectionID, styles }) => {
                       width={150}
                       height={70}
                       alt={"Regulatory matters and legal regulations"}
-                      style={{objectFit:"contain"}}
+                      style={{ objectFit: "contain" }}
                     />
                     <span>Regulatory Work</span>
                   </Stack>
