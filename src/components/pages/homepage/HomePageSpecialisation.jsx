@@ -64,6 +64,7 @@ const HomePageSpecialisation = ({ sectionID, styles }) => {
                   borderRadius: "var(--high-rounded)",
                   padding: "20px",
                 }}
+                className={styles.specialisationCardDetailsBox}
               >
                 <Stack spacing={2}>
                   <span className={styles.specialisationCardTitle}>
@@ -95,6 +96,7 @@ const HomePageSpecialisation = ({ sectionID, styles }) => {
                   borderRadius: "var(--high-rounded)",
                   padding: "20px",
                 }}
+                className={styles.specialisationCardDetailsBox}
               >
                 <Stack spacing={2}>
                   <span className={styles.specialisationCardTitle}>
@@ -126,6 +128,7 @@ const HomePageSpecialisation = ({ sectionID, styles }) => {
                   borderRadius: "var(--high-rounded)",
                   padding: "20px",
                 }}
+                className={styles.specialisationCardDetailsBox}
               >
                 <Stack spacing={2}>
                   <span className={styles.specialisationCardTitle}>

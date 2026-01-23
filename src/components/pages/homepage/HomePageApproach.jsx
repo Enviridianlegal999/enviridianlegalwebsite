@@ -10,7 +10,8 @@ import * as motion from "motion/react-client";
 
 import Container from "@/components/layout/Container";
 
-import whoAndApproach from "../../../../public/assets/images/who-and-approach.webp";
+// import whoAndApproach from "../../../../public/assets/images/who-and-approach.webp";
+import whoAndApproach from "../../../../public/assets/images/who-and-approach.png";
 import lawyerApproachHammer from "../../../../public/assets/images/lawyer-approach-hammer.webp";
 
 import { blackOutlinedButtonStyle } from "@/styles/mui/mui-custom-component";
@@ -29,7 +30,7 @@ const HomePageApproach = ({ sectionID, styles }) => {
               legally sound and commercially sensible.
             </span>
           </Stack>
-          <Grid container spacing={2} mt={10}>
+          <Grid container spacing={2} sx={{ py: "var(--container-padding)" }}>
             <Grid
               size={{ xs: 12, sm: 6 }}
               display={"flex"}

@@ -147,19 +147,24 @@
 }
 
 .specialisationCard:nth-child(1) {
-  background-image: url("/assets/images/constitutional-law.webp");
+  background-image: url("/assets/images/constitutional-law.png");
   background-size: cover;
   background-position: center;
 }
 .specialisationCard:nth-child(2) {
-  background-image: url("/assets/images/service-law.webp");
+  background-image: url("/assets/images/service-law.png");
   background-size: cover;
   background-position: center;
 }
 .specialisationCard:nth-child(3) {
-  background-image: url("/assets/images/regulatory-law.webp");
+  background-image: url("/assets/images/regulatory-law.png");
   background-size: cover;
   background-position: center;
+}
+
+.specialisationCardDetailsBox {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
 
 .specialisationCardTitle {
