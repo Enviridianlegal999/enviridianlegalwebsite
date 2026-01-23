@@ -27,9 +27,9 @@ export const services = [
     expertImage: "Sarojni Singh.webp",
   },
   {
-    title: "Publishing & Media Law",
+    title: "Media and Entertainment Law",
     description:
-      "Our Publishing & Media Law practice assists clients in print, digital, and entertainment industries. We advise on defamation, intellectual property, content licensing, and compliance with IT and broadcasting laws. Enveridian Legal conducts pre‑publication reviews, drafts media agreements, and handles regulatory concerns. We help creators and organizations express freely while staying legally secure. With deep understanding of emerging digital regulations, our team empowers content producers to operate confidently, responsibly, and within the law.",
+      "We help content-led businesses achieve commercial outcomes with legal certainty, combining industry knowledge with sharp and practical risk management. Our work spans print and digital media, licensing and adaptation rights, and content distribution. We advise on content and reputational risk, negotiate and draft all manner of commercial contracts (including cross-media licensing, distribution, employment and other arrangements), and support clients on strategic structuring and transactions (including acquisitions and hiving-off of business divisions). We also represent clients in all manner of disputes and litigation, including issues involving defamation, privacy, personality rights, employment, confidentiality and IP. We are committed to bringing a deep sector understanding and a calm, commercial approach to each mandate.",
     expertName: "Samrat Rawat",
     expertDesignation: "Associate - Enviridian Law Firm",
     expertContactEmail: "samratrawat@enviridian.com",

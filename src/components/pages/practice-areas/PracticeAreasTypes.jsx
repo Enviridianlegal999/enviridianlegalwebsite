@@ -116,7 +116,7 @@ const PracticeAreasTypes = ({ sectionID, styles }) => {
                           : "flex"
                       }
                     >
-                      <Box
+                      {/* <Box
                         sx={{
                           height: "220px",
                           width: "200px",
@@ -149,7 +149,7 @@ const PracticeAreasTypes = ({ sectionID, styles }) => {
                             {selectedType?.expertContactEmail}
                           </a>
                         </Stack>
-                      </Box>
+                      </Box> */}
                     </Stack>
                     <Box
                       display={

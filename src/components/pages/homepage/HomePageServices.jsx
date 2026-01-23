@@ -58,10 +58,10 @@ const HomePageServices = ({ sectionID, styles }) => {
               <ServicesCard
                 styles={styles}
                 image={publishingAndMedia}
-                altText={"Publishing & Media Law"}
-                serviceTitle={"Publishing & Media Law"}
+                altText={"Media and Entertainment Law"}
+                serviceTitle={"Media and Entertainment Law"}
                 serviceDescription={
-                  "We provide comprehensive advice to authors, publishers, and media organizations on issues of copyright, defamation, freedom of speech, and regulatory compliance, with a nuanced understanding of the publishing ecosystem."
+                  "We help content-led businesses achieve commercial outcomes with legal certainty, combining industry knowledge with sharp and practical risk management."
                 }
               />
               <ServicesCard
