@@ -72,6 +72,7 @@ const AboutPageRecognition = ({ sectionID, styles }) => {
                   src={recognitionImage}
                   alt={"court room"}
                   fill
+                  sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   style={{
                     objectFit: "contain",
                   }}

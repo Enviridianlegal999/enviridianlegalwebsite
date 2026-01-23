@@ -7,17 +7,17 @@ import * as motion from "motion/react-client";
 import Container from "@/components/layout/Container";
 import SectionBookMark from "@/components/layout/SectionBookMark";
 
-import mumbai from "../../../../public/assets/images/mumbai.jpg";
-import delhi from "../../../../public/assets/images/delhi.jpg";
-import gurugram from "../../../../public/assets/images/gurugram.jpg";
-import bengaluru from "../../../../public/assets/images/bengaluru.jpg";
-import lucknow from "../../../../public/assets/images/lucknow.jpg";
-import jaipur from "../../../../public/assets/images/jaipur.jpg";
-import kochi from "../../../../public/assets/images/kochi.jpg";
-import chennai from "../../../../public/assets/images/chennai.jpg";
-import singapore from "../../../../public/assets/images/singapore.jpg";
-import australia from "../../../../public/assets/images/australia.jpg";
-import sweden from "../../../../public/assets/images/sweden.jpg";
+import mumbai from "../../../../public/assets/images/mumbai.webp";
+import delhi from "../../../../public/assets/images/delhi.webp";
+import gurugram from "../../../../public/assets/images/gurugram.webp";
+import bengaluru from "../../../../public/assets/images/bengaluru.webp";
+import lucknow from "../../../../public/assets/images/lucknow.webp";
+import jaipur from "../../../../public/assets/images/jaipur.webp";
+import kochi from "../../../../public/assets/images/kochi.webp";
+import chennai from "../../../../public/assets/images/chennai.webp";
+import singapore from "../../../../public/assets/images/singapore.webp";
+import australia from "../../../../public/assets/images/australia.webp";
+import sweden from "../../../../public/assets/images/sweden.webp";
 // Photo by <a href="https://unsplash.com/@sidsaxena?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sid Saxena</a> on <a href="https://unsplash.com/photos/brown-bridge-during-golden-hour-tsXADt9ldio?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 // Photo by <a href="https://unsplash.com/@junaidahmadansari?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Junaid Ahmad Ansari</a> on <a href="https://unsplash.com/photos/white-dome-building-near-palm-trees-during-daytime-9WP-NVh2d6U?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 // Photo by <a href="https://unsplash.com/@vishu_since_2000?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Vishal Kumar</a> on <a href="https://unsplash.com/photos/a-very-tall-building-with-a-sky-background-iFDByklLsdE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -72,6 +72,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={mumbai}
                     alt={"Mumbai"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -110,6 +111,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={delhi}
                     alt={"Delhi"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -148,6 +150,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={lucknow}
                     alt={"Lucknow"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -186,6 +189,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={jaipur}
                     alt={"Jaipur"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -224,6 +228,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={kochi}
                     alt={"Kochi"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -262,6 +267,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={chennai}
                     alt={"Chennai"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -300,6 +306,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={bengaluru}
                     alt={"Bengaluru"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -338,6 +345,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={gurugram}
                     alt={"Gurugram"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -393,6 +401,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={singapore}
                     alt={"Singapore"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -431,6 +440,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={australia}
                     alt={"Australia"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -469,6 +479,7 @@ const AboutPageCities = ({ sectionID, styles }) => {
                     src={sweden}
                     alt={"Sweden"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>

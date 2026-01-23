@@ -55,6 +55,7 @@ const AboutPageOverview = ({ sectionID, styles }) => {
                   src={aboutPageOverview}
                   alt={"law firm and lawyers working together"}
                   fill
+                  sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   style={{
                     objectFit: "contain",
                   }}

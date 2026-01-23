@@ -47,6 +47,7 @@ const AboutPageTeam = ({ sectionID, styles }) => {
                     src={adeshDiwakar}
                     alt={"Adesh Diwakar - Founder"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -85,6 +86,7 @@ const AboutPageTeam = ({ sectionID, styles }) => {
                     src={anilKushwani}
                     alt={"Anil Kushwani - Partner"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -123,6 +125,7 @@ const AboutPageTeam = ({ sectionID, styles }) => {
                     src={sarojniSingh}
                     alt={"Sarojni Singh - Associate"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>
@@ -161,6 +164,7 @@ const AboutPageTeam = ({ sectionID, styles }) => {
                     src={samratRawat}
                     alt={"Samrat Rawat - Associate"}
                     fill
+                    sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
                   />
                 </Box>

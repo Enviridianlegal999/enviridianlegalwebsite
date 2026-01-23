@@ -14,11 +14,11 @@ import Container from "@/components/layout/Container";
 import FullWidthContainer from "@/components/layout/FullWidthContainer";
 import GetFreeConsultation from "@/components/popups/GetFreeConsultation";
 
-import homepageHero from "../../../../public/assets/images/hero-image-fg-4.png";
-import supremeCourt from "../../../../public/assets/images/supreme-court.png";
-import highCourt from "../../../../public/assets/images/high-court.png";
-import publicInterest from "../../../../public/assets/images/public-interest.png";
-import regulatoryWork from "../../../../public/assets/images/regulatory-work.png";
+import homepageHero from "../../../../public/assets/images/hero-image-fg-4.webp";
+import supremeCourt from "../../../../public/assets/images/supreme-court.webp";
+import highCourt from "../../../../public/assets/images/high-court.webp";
+import publicInterest from "../../../../public/assets/images/public-interest.webp";
+import regulatoryWork from "../../../../public/assets/images/regulatory-work.webp";
 
 const HomePageHero = ({ sectionID, styles }) => {
   const [isGetFreeConsultation, setIsGetFreeConsultation] = useState(false);
@@ -28,7 +28,7 @@ const HomePageHero = ({ sectionID, styles }) => {
       <section id={sectionID} className={styles.heroSection}>
         <Box sx={{ display: { xs: "block", sm: "block", lg: "block" } }}>
           <FullWidthContainer
-            image="assets/images/hero-image-7.png"
+            image="assets/images/hero-image-7.webp"
             align="right"
             width="100%"
             height="100%"

@@ -20,6 +20,7 @@ export default function StackedCarousel({ activeIndex, cards }) {
                 src={card.image}
                 alt={card.title}
                 fill
+                sizes="(max-width: 600px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 style={{ objectFit: "cover" }}
               />
             </div>

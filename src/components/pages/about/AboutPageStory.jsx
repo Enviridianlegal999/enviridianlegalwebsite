@@ -26,7 +26,7 @@ const AboutPageStory = ({ sectionID, styles }) => {
             }}
           >
             <FullWidthContainer
-              image="assets/images/our-story-building.png"
+              image="assets/images/our-story-building.webp"
               align="left"
               width="60%"
               height="70vh"
@@ -53,7 +53,7 @@ const AboutPageStory = ({ sectionID, styles }) => {
             }}
           >
             <FullWidthContainer
-              image="assets/images/our-story-building.png"
+              image="assets/images/our-story-building.webp"
               align="left"
               width="90%"
               height="70vh"
@@ -80,7 +80,7 @@ const AboutPageStory = ({ sectionID, styles }) => {
             }}
           >
             <FullWidthContainer
-              image="assets/images/our-story-building.png"
+              image="assets/images/our-story-building.webp"
               align="left"
               width="80%"
               height="70vh"

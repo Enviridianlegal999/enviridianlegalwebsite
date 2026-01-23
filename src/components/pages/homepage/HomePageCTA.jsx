@@ -3,7 +3,7 @@ import * as motion from "motion/react-client";
 import PageCTA from "@/components/layout/PageCTA";
 
 // import ctaImage from "../../../../public/assets/images/cta-image.webp";
-import ctaImage from "../../../../public/assets/images/cta-image.png";
+import ctaImage from "../../../../public/assets/images/cta-image.webp";
 
 const HomePageCTA = ({ sectionID, styles }) => {
   return (
