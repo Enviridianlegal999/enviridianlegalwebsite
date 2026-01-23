@@ -9,6 +9,12 @@ import AboutPageUSP from "@/components/pages/about/AboutPageUSP";
 
 import styles from "@/styles/pages/AboutPage.module.css";
 
+export const metadata = {
+  title: "About Our Firm",
+  description:
+    "Learn about the mission, values, and expert legal team at Enviridian Legal. Leading advocates for Constitutional and Service law in Delhi NCR.",
+};
+
 export default function About() {
   return (
     <>

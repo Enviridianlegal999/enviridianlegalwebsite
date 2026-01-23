@@ -4,6 +4,12 @@ import PracticeAreasTypes from "@/components/pages/practice-areas/PracticeAreasT
 
 import styles from "@/styles/pages/PracticeAreasPage.module.css";
 
+export const metadata = {
+  title: "Our Practice Areas",
+  description:
+    "Comprehensive legal services including Constitutional Law, IP Disputes, Service Matters, and Corporate Advisory in the Supreme Court and High Courts.",
+};
+
 export default function PracticeAreasPage() {
   return (
     <>

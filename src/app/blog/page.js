@@ -107,6 +107,23 @@ function BlogCard({ blog }) {
   );
 }
 
+export const metadata = {
+  title: "Legal Insights & Updates",
+  description:
+    "Stay informed with the latest legal updates, case analyses, and expert insights on Constitutional, Service, and IP Law from Enviridian Legal.",
+  keywords: [
+    "Legal Updates",
+    "Practice Areas",
+    "Client Resources",
+    "Firm News",
+    "Insights",
+    "Indian law blog",
+    "legal updates Delhi",
+    "Supreme Court case analysis",
+    "service law news",
+  ],
+};
+
 export default async function BlogPage({ searchParams }) {
   const resolvedSearchParams = await searchParams;
   const page = Number(resolvedSearchParams.page) || 1;

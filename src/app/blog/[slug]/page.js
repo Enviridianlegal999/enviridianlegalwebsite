@@ -6,14 +6,7 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 
 import remarkGfm from "remark-gfm";
-import {
-  Box,
-  Stack,
-  Chip,
-  Avatar,
-  Grid,
-  Card,
-} from "@mui/material";
+import { Box, Stack, Chip, Avatar, Grid, Card } from "@mui/material";
 
 import Container from "@/components/layout/Container";
 import { getBlogBySlug, getAllBlogsForPublic } from "@/actions/blog";
@@ -80,6 +73,22 @@ function RelatedPost({ blog }) {
       </Card>
     </Link>
   );
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = params;
+  // Fetch blog data here (e.g., from your Mongoose model)
+  const blog = await getBlogBySlug(slug);
+
+  if (!blog) return { title: "Blog Not Found" };
+
+  return {
+    title: blog.title,
+    description: blog.excerpt,
+    openGraph: {
+      images: [blog.coverImage],
+    },
+  };
 }
 
 export default async function BlogPost({ params }) {

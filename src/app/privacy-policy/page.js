@@ -4,6 +4,13 @@ import Container from "@/components/layout/Container";
 
 import styles from "@/styles/pages/Common.module.css";
 
+export const metadata = {
+  title: "Privacy Policy",
+  description:
+    "Read the Enviridian Legal privacy policy to understand how we handle and protect your data.",
+  robots: { index: false, follow: true }, // Usually best to keep legal docs out of top search results
+};
+
 export default function PrivacyPolicyPage() {
   return (
     <section id="document" className={styles.privacyPolicyPage}>

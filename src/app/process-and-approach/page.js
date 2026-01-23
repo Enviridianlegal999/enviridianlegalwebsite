@@ -5,6 +5,12 @@ import ProcessPageSteps from "@/components/pages/process-and-approach/ProcessPag
 
 import styles from "@/styles/pages/ProcessPage.module.css";
 
+export const metadata = {
+  title: "Our Approach",
+  description:
+    "Understand how Enviridian Legal handles complex litigation and advisory. Our systematic process ensures diligence, clarity, and commitment for every client.",
+};
+
 export default function ProcessAndApproach() {
   return (
     <>

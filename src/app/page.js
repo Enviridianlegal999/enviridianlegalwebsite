@@ -11,9 +11,53 @@ import HomePageCTA from "@/components/pages/homepage/HomePageCTA";
 
 import styles from "@/styles/pages/HomePage.module.css";
 
+// TODO add telephone and email when approved
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  name: "Enviridian Legal",
+  image:
+    "https://enviridianlegal.com/assets/company/enviridian-logo-long-png.png",
+  "@id": "https://enviridianlegal.com",
+  url: "https://enviridianlegal.com",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "B 89, Greater Kailash 1",
+    addressLocality: "New Delhi",
+    postalCode: "110048",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 28.556434,
+    longitude: 77.23244,
+  },
+  areaServed: {
+    "@type": "State",
+    name: "Delhi NCR",
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ],
+    opens: "09:30",
+    closes: "19:30",
+  },
+};
+
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <HomePageHero sectionID={"hero"} styles={styles} />
       <HomePageCoreExpertise sectionID={"core-expertise"} styles={styles} />
       <HomePageSpecialisation sectionID={"specialisation"} styles={styles} />

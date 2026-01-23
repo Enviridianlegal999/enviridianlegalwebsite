@@ -4,6 +4,13 @@ import Container from "@/components/layout/Container";
 
 import styles from "@/styles/pages/Common.module.css";
 
+export const metadata = {
+  title: "Terms and Conditions",
+  description:
+    "Official terms and conditions governing the use of the Enviridian Legal website and services.",
+  robots: { index: false, follow: true },
+};
+
 export default function TermsAndConditionsPage() {
   return (
     <section id="document" className={styles.termsAndConditionsPage}>
