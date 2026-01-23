@@ -27,7 +27,7 @@ const AboutPageRecognition = ({ sectionID, styles }) => {
                   multinational corporations to emerging businesses and private
                   individuals before courts and tribunals across India.
                 </p>
-                <Stack
+                {/* <Stack
                   spacing={2}
                   sx={{
                     bgcolor: "var(--blue-tint-12)",
@@ -50,7 +50,7 @@ const AboutPageRecognition = ({ sectionID, styles }) => {
                     alt="company 3"
                     width={"50px"}
                   />
-                </Stack>
+                </Stack> */}
               </Stack>
             </motion.div>
           </Grid>
